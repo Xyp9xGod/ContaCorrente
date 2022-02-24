@@ -14,9 +14,9 @@ namespace ContaCorrente.Domain.Entities
             ValidateDomain(accountNumber, bankCode, balance);
         }
 
-        public BankAccount(Guid id, string accountNumber, string bankCode, double balance)
+        public BankAccount(int id, string accountNumber, string bankCode, double balance)
         {
-            DomainExceptionValidation.When(id.ToString().Trim() == "00000000-0000-0000-0000-000000000000", "Invalid Id value.");
+            DomainExceptionValidation.When(id <= 0, "Invalid Id value.");
             Id = id;
             ValidateDomain(accountNumber, bankCode, balance);
         }

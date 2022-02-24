@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ContaCorrente.Domain\ContaCorrente.Domain.csproj" />
+    <ProjectReference Include="..\ContaCorrente.Infra.Data\ContaCorrente.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>

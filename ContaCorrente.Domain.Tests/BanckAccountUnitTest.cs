@@ -8,6 +8,23 @@ namespace ContaCorrente.Domain.Tests
     public class BanckAccountUnitTest
     {
         [Fact]
+        public void CreateBankAccount_WithInvalidId_ResultObjectValidState()
+        {
+            Action action = () => new BankAccount(0, "123456-0", "371", 0);
+            action.Should()
+                .Throw<Validations.DomainExceptionValidation>()
+                .WithMessage("Invalid Id value.");
+        }
+
+        [Fact]
+        public void CreateBankAccount_WithValidId_ResultObjectValidState()
+        {
+            Action action = () => new BankAccount(1, "123456-0", "371", 0);
+            action.Should()
+                .NotThrow();
+        }
+
+        [Fact]
         public void CreateBankAccount_WithoutAccountNumber_ResultObjectValidState()
         {
             Action action = () => new BankAccount("", "371", 0);
@@ -32,23 +49,6 @@ namespace ContaCorrente.Domain.Tests
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Balance value. Value Shouldn't be negative.");
-        }
-
-        [Fact]
-        public void CreateBankAccount_WithInvalidId_ResultObjectValidState()
-        {
-            Action action = () => new BankAccount(Guid.Empty, "123456-0", "371", 0);
-            action.Should()
-                .Throw<Validations.DomainExceptionValidation>()
-                .WithMessage("Invalid Id value.");
-        }
-
-        [Fact]
-        public void CreateBankAccount_WithValidId_ResultObjectValidState()
-        {
-            Action action = () => new BankAccount(Guid.NewGuid(), "123456-0", "371", 0);
-            action.Should()
-                .NotThrow();
         }
     }
 }

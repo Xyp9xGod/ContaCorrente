@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.Domain.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.Infra.Data", "ContaCorrente.Infra.Data\ContaCorrente.Infra.Data.csproj", "{FF09FF5B-9240-4713-802E-E6340C383497}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.IoC", "ContaCorrente.IoC\ContaCorrente.IoC.csproj", "{0FEC58E9-61FA-4F6B-93B5-FE2064DAEDEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.Application", "ContaCorrente.Application\ContaCorrente.Application.csproj", "{32C5E885-D5A8-4C58-A71F-D10971E7ED0A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{FF09FF5B-9240-4713-802E-E6340C383497}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF09FF5B-9240-4713-802E-E6340C383497}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF09FF5B-9240-4713-802E-E6340C383497}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FEC58E9-61FA-4F6B-93B5-FE2064DAEDEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FEC58E9-61FA-4F6B-93B5-FE2064DAEDEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FEC58E9-61FA-4F6B-93B5-FE2064DAEDEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FEC58E9-61FA-4F6B-93B5-FE2064DAEDEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32C5E885-D5A8-4C58-A71F-D10971E7ED0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32C5E885-D5A8-4C58-A71F-D10971E7ED0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32C5E885-D5A8-4C58-A71F-D10971E7ED0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32C5E885-D5A8-4C58-A71F-D10971E7ED0A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

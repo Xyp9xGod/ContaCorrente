@@ -8,6 +8,23 @@ namespace ContaCorrente.Domain.Tests
     public class TransactionUnitTest
     {
         [Fact]
+        public void CreateTransaction_WithInvalidId_ResultObjectValidState()
+        {
+            Action action = () => new Transaction(0, "123456-0", "", 50, "C", DateTime.Now);
+            action.Should()
+                .Throw<Validations.DomainExceptionValidation>()
+                .WithMessage("Invalid Id value.");
+        }
+
+        [Fact]
+        public void CreateTransaction_WithValidId_ResultObjectValidState()
+        {
+            Action action = () => new Transaction(1,"123456-0", "", 50, "C", DateTime.Now);
+            action.Should()
+                .NotThrow();
+        }
+
+        [Fact]
         public void CreateTransaction_WithoutAccountNumber_ResultObjectValidState()
         {
             Action action = () => new Transaction("", "371", 50, "C", DateTime.Now);
@@ -56,23 +73,6 @@ namespace ContaCorrente.Domain.Tests
         public void CreateTransaction_WithValideType_ResultObjectValidState()
         {
             Action action = () => new Transaction("123456-0", "371", 78.96, "C", DateTime.Now);
-            action.Should()
-                .NotThrow();
-        }
-
-        [Fact]
-        public void CreateTransaction_WithInvalidId_ResultObjectValidState()
-        {
-            Action action = () => new BankAccount(Guid.Empty, "123456-0", "371", 0);
-            action.Should()
-                .Throw<Validations.DomainExceptionValidation>()
-                .WithMessage("Invalid Id value.");
-        }
-
-        [Fact]
-        public void CreateTransaction_WithValidId_ResultObjectValidState()
-        {
-            Action action = () => new BankAccount(Guid.NewGuid(), "123456-0", "371", 0);
             action.Should()
                 .NotThrow();
         }
