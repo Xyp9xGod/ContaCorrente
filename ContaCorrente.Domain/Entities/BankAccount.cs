@@ -1,4 +1,5 @@
 ﻿using ContaCorrente.Domain.Validations;
+using System;
 
 namespace ContaCorrente.Domain.Entities
 {
@@ -10,6 +11,13 @@ namespace ContaCorrente.Domain.Entities
 
         public BankAccount(string accountNumber, string bankCode, double balance)
         {
+            ValidateDomain(accountNumber, bankCode, balance);
+        }
+
+        public BankAccount(Guid id, string accountNumber, string bankCode, double balance)
+        {
+            DomainExceptionValidation.When(id.ToString().Trim() == "00000000-0000-0000-0000-000000000000", "Invalid Id value.");
+            Id = id;
             ValidateDomain(accountNumber, bankCode, balance);
         }
 

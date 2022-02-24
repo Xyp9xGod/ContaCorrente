@@ -16,6 +16,13 @@ namespace ContaCorrente.Domain.Entities
             ValidateDomain(accountNumber, bankCode, value, type, date);
         }
 
+        public Transaction(Guid id, string accountNumber, string bankCode, double value, string type, DateTime date)
+        {
+            DomainExceptionValidation.When(id.ToString().Trim() == "00000000-0000-0000-0000-000000000000", "Invalid Id value.");
+            Id = id;
+            ValidateDomain(accountNumber, bankCode, value, type, date);
+        }
+
         public void Update(string accountNumber, string bankCode, double value, string type, DateTime date)
         {
             ValidateDomain(accountNumber, bankCode, value, type, date);

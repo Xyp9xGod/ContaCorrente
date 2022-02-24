@@ -33,5 +33,22 @@ namespace ContaCorrente.Domain.Tests
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Balance value. Value Shouldn't be negative.");
         }
+
+        [Fact]
+        public void CreateBankAccount_WithInvalidId_ResultObjectValidState()
+        {
+            Action action = () => new BankAccount(Guid.Empty, "123456-0", "371", 0);
+            action.Should()
+                .Throw<Validations.DomainExceptionValidation>()
+                .WithMessage("Invalid Id value.");
+        }
+
+        [Fact]
+        public void CreateBankAccount_WithValidId_ResultObjectValidState()
+        {
+            Action action = () => new BankAccount(Guid.NewGuid(), "123456-0", "371", 0);
+            action.Should()
+                .NotThrow();
+        }
     }
 }
