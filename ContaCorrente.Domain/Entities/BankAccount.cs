@@ -6,19 +6,19 @@ namespace ContaCorrente.Domain.Entities
     {
         public string AccountNumber { get; private set; }
         public string BankCode { get; private set; }
-        public decimal Balance { get; private set; }
+        public double Balance { get; private set; }
 
-        public BankAccount(string accountNumber, string bankCode, decimal balance)
+        public BankAccount(string accountNumber, string bankCode, double balance)
         {
             ValidateDomain(accountNumber, bankCode, balance);
         }
 
-        public void Update(string accountNumber, string bankCode, decimal balance)
+        public void Update(string accountNumber, string bankCode, double balance)
         {
             ValidateDomain(accountNumber, bankCode, balance);
         }
 
-        private void ValidateDomain(string accountNumber, string bankCode, decimal balance)
+        private void ValidateDomain(string accountNumber, string bankCode, double balance)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(accountNumber), "Invalid Account Number, Account Number is required.");
             DomainExceptionValidation.When(string.IsNullOrEmpty(bankCode), "Invalid Bank Code, Bank Code is required.");

@@ -28,7 +28,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateBankAccount_WithInvalidValue_ResultObjectValidState()
         {
-            Action action = () => new Transaction("123456-0", "371", -5, "C", DateTime.Now);
+            Action action = () => new Transaction("123456-0", "371", -5.78, "C", DateTime.Now);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Value.");
@@ -37,7 +37,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateBankAccount_WithoutType_ResultObjectValidState()
         {
-            Action action = () => new Transaction("123456-0", "371", 50, "", DateTime.Now);
+            Action action = () => new Transaction("123456-0", "371", 50.00, "", DateTime.Now);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Type, Type is required.");
@@ -46,7 +46,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateBankAccount_WithInvalideType_ResultObjectValidState()
         {
-            Action action = () => new Transaction("123456-0", "371", 50, "F", DateTime.Now);
+            Action action = () => new Transaction("123456-0", "371", 89.35, "F", DateTime.Now);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Type, Type Should be C for Credit or D for Debit");
@@ -55,7 +55,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateBankAccount_WithValideType_ResultObjectValidState()
         {
-            Action action = () => new Transaction("123456-0", "371", 50, "C", DateTime.Now);
+            Action action = () => new Transaction("123456-0", "371", 78.96, "C", DateTime.Now);
             action.Should()
                 .NotThrow();
         }

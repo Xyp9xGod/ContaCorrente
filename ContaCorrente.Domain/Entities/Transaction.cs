@@ -7,21 +7,21 @@ namespace ContaCorrente.Domain.Entities
     {
         public string AccountNumber { get; private set; }
         public string BankCode { get; private set; }
-        public decimal Value { get; private set; }
+        public double Value { get; private set; }
         public string Type { get; private set; }
         public DateTime Date { get; private set; }
 
-        public Transaction(string accountNumber, string bankCode, decimal value, string type, DateTime date)
+        public Transaction(string accountNumber, string bankCode, double value, string type, DateTime date)
         {
             ValidateDomain(accountNumber, bankCode, value, type, date);
         }
 
-        public void Update(string accountNumber, string bankCode, decimal value, string type, DateTime date)
+        public void Update(string accountNumber, string bankCode, double value, string type, DateTime date)
         {
             ValidateDomain(accountNumber, bankCode, value, type, date);
         }
 
-        private void ValidateDomain(string accountNumber, string bankCode, decimal value, string type, DateTime date)
+        private void ValidateDomain(string accountNumber, string bankCode, double value, string type, DateTime date)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(accountNumber), "Invalid Account Number, Account Number is required.");
             DomainExceptionValidation.When(string.IsNullOrEmpty(bankCode), "Invalid Bank Code, Bank Code is required.");

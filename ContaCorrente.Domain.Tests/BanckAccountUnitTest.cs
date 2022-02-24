@@ -28,7 +28,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateBankAccount_WithoutInvalidBalance_ResultObjectValidState()
         {
-            Action action = () => new BankAccount("123456-0", "371", Convert.ToDecimal(-50.35));
+            Action action = () => new BankAccount("123456-0", "371", -50.35);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Balance value. Value Shouldn't be negative.");
