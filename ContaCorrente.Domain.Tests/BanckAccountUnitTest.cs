@@ -32,7 +32,25 @@ namespace ContaCorrente.Domain.Tests
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Account Number, Account Number is required.");
         }
-        
+
+        [Fact]
+        public void CreateBankAccount_WithWrongAccountNumberSize_ResultObjectValidState()
+        {
+            Action action = () => new BankAccount("12345-0", "371", 0);
+            action.Should()
+                .Throw<Validations.DomainExceptionValidation>()
+                .WithMessage("Invalid Account Number, Account Number Should have 8 characters.");
+        }
+
+        [Fact]
+        public void CreateBankAccount_WithWrongBankCodeSize_ResultObjectValidState()
+        {
+            Action action = () => new BankAccount("123456-0", "0371", 0);
+            action.Should()
+                .Throw<Validations.DomainExceptionValidation>()
+                .WithMessage("Invalid Bank Code, Bank Code Should have 3 characters.");
+        }
+
         [Fact]
         public void CreateBankAccount_WithoutBankCode_ResultObjectValidState()
         {

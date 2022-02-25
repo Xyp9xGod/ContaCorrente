@@ -34,6 +34,24 @@ namespace ContaCorrente.Domain.Tests
         }
 
         [Fact]
+        public void CreateTransaction_WithWrongAccountNumberSize_ResultObjectValidState()
+        {
+            Action action = () => new Transaction("00123-3", "371", 50, "C", DateTime.Now);
+            action.Should()
+                .Throw<Validations.DomainExceptionValidation>()
+                .WithMessage("Invalid Account Number, Account Number Should have 8 characters.");
+        }
+
+        [Fact]
+        public void CreateTransaction_WithWrongBankCodeSize_ResultObjectValidState()
+        {
+            Action action = () => new Transaction("123456-0", "0371", 50, "C", DateTime.Now);
+            action.Should()
+                .Throw<Validations.DomainExceptionValidation>()
+                .WithMessage("Invalid Bank Code, Bank Code Should have 3 characters.");
+        }
+
+        [Fact]
         public void CreateTransaction_WithoutBankCode_ResultObjectValidState()
         {
             Action action = () => new Transaction("123456-0", "", 50, "C", DateTime.Now);

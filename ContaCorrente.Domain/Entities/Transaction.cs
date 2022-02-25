@@ -31,7 +31,9 @@ namespace ContaCorrente.Domain.Entities
         private void ValidateDomain(string accountNumber, string bankCode, double value, string type, DateTime date)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(accountNumber), "Invalid Account Number, Account Number is required.");
+            DomainExceptionValidation.When(accountNumber.Length != 8, "Invalid Account Number, Account Number Should have 8 characters.");
             DomainExceptionValidation.When(string.IsNullOrEmpty(bankCode), "Invalid Bank Code, Bank Code is required.");
+            DomainExceptionValidation.When(bankCode.Length != 3, "Invalid Bank Code, Bank Code Should have 3 characters.");
             DomainExceptionValidation.When(value < 0, "Invalid Value.");
             DomainExceptionValidation.When(string.IsNullOrEmpty(type), "Invalid Type, Type is required.");
             DomainExceptionValidation.When(!type.Trim().Equals("C") && !type.Trim().Equals("D"), "Invalid Type, Type Should be C for Credit or D for Debit");
