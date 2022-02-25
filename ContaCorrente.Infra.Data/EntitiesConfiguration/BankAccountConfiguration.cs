@@ -10,13 +10,13 @@ namespace ContaCorrente.Infra.Data.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<BankAccount> builder)
         {
             builder.HasKey(t => t.Id);
-            builder.Property(p => p.AccountNumber).HasMaxLength(100).IsRequired();
-            builder.Property(p => p.BankCode).HasMaxLength(100).IsRequired();
-            builder.Property(p => p.Balance).HasMaxLength(11).IsRequired();
+            builder.Property(p => p.AccountNumber).HasMaxLength(8).IsRequired();
+            builder.Property(p => p.BankCode).HasMaxLength(3).IsRequired();
+            builder.Property(p => p.Balance).IsRequired();
             builder.HasData(
-                new BankAccount(Guid.NewGuid(), "123456-0", "371", 37),
-                new BankAccount(Guid.NewGuid(), "678910-2", "371", 79),
-                new BankAccount(Guid.NewGuid(), "345678-9", "371", 135)
+                new BankAccount(1, "123456-0", "371", 37),
+                new BankAccount(2, "678910-2", "371", 79),
+                new BankAccount(3, "345678-9", "371", 135)
             );
         }
     }

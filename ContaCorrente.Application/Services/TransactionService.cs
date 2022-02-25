@@ -20,9 +20,9 @@ namespace ContaCorrente.Application.Services
                  throw new ArgumentNullException(nameof(transactionRepository));
         }
 
-        public async Task<IEnumerable<TransactionDTO>> GetAllAccountsAsync()
+        public async Task<IEnumerable<TransactionDTO>> GetAllAccountTransactionsAsync(string accountNumber)
         {
-            var transactionEntity = await _transactionRepository.GetAllTransactionsAsync();
+            var transactionEntity = await _transactionRepository.GetAllAccountTransactionsAsync(accountNumber);
             return _mapper.Map<IEnumerable<TransactionDTO>>(transactionEntity);
         }
 

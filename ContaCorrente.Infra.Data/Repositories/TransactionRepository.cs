@@ -30,9 +30,16 @@ namespace ContaCorrente.Infra.Data.Repositories
             return await (Task<IEnumerable<Transaction>>)transactions;
         }
 
-        public async Task<IEnumerable<Transaction>> GetAllTransactionsAsync()
+        public async Task<IEnumerable<Transaction>> GetAllAccountTransactionsAsync(string accountNumber)
         {
-            return await _transactionDbContext.Transactions.ToListAsync();
+            //var transactions = _transactionDbContext.Transactions.Select(x => x.AccountNumber = accountNumber);
+            //var bankAccount = await _bankAccountContext.Set<BankAccount>().FirstOrDefaultAsync(x => x.AccountNumber == accountNumber);
+
+            //if (transactions != null)
+            //{
+            //    _transactionDbContext.Entry(transactions).State = EntityState.Detached;
+            //}
+            //return await (Task<IEnumerable<Transaction>>)transactions;
         }
 
         public async Task<Transaction> CreateAsync(Transaction transaction)

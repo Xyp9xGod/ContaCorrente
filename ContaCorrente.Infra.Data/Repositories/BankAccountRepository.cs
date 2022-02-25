@@ -24,13 +24,12 @@ namespace ContaCorrente.Infra.Data.Repositories
 
         public async Task<BankAccount> GetByAccountNumberAsync(string accountNumber)
         {
-            var bankAccount = _bankAccountContext.BankAccounts.Where(x => x.AccountNumber == accountNumber);
-
+            var bankAccount = await _bankAccountContext.Set<BankAccount>().FirstOrDefaultAsync(x => x.AccountNumber == accountNumber);
             if (bankAccount != null)
             {
                 _bankAccountContext.Entry(bankAccount).State = EntityState.Detached;
             }
-            return await (Task<BankAccount>)bankAccount;
+            return bankAccount;
         }
 
         public async Task<BankAccount> CreateAsync(BankAccount bankAccount)

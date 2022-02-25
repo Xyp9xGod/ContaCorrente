@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.IoC", "ContaC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.Application", "ContaCorrente.Application\ContaCorrente.Application.csproj", "{32C5E885-D5A8-4C58-A71F-D10971E7ED0A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.API", "ContaCorrente.API\ContaCorrente.API.csproj", "{23585FAB-C9B0-4862-9F5B-07B024B80877}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{32C5E885-D5A8-4C58-A71F-D10971E7ED0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32C5E885-D5A8-4C58-A71F-D10971E7ED0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32C5E885-D5A8-4C58-A71F-D10971E7ED0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23585FAB-C9B0-4862-9F5B-07B024B80877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23585FAB-C9B0-4862-9F5B-07B024B80877}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23585FAB-C9B0-4862-9F5B-07B024B80877}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23585FAB-C9B0-4862-9F5B-07B024B80877}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
