@@ -18,28 +18,29 @@ namespace ContaCorrente.Infra.Data.Repositories
             _transactionDbContext = context;
         }
 
-        public async Task<IEnumerable<Transaction>> GetTransactionsByDateAsync(string accountNumber, DateTime startDate, DateTime finalDate)
-        {
-            var transactions = _transactionDbContext.Transactions.Where(x => x.AccountNumber == accountNumber 
-                                && (x.Date >= startDate && x.Date <= finalDate));
-
-            if (transactions != null)
-            {
-                _transactionDbContext.Entry(transactions).State = EntityState.Detached;
-            }
-            return await (Task<IEnumerable<Transaction>>)transactions;
-        }
-
         public async Task<IEnumerable<Transaction>> GetAllAccountTransactionsAsync(string accountNumber)
         {
-            //var transactions = _transactionDbContext.Transactions.Select(x => x.AccountNumber = accountNumber);
-            //var bankAccount = await _bankAccountContext.Set<BankAccount>().FirstOrDefaultAsync(x => x.AccountNumber == accountNumber);
+            var listTransactions = await _transactionDbContext.Transactions
+                .Where(x => x.AccountNumber == accountNumber)
+                .OrderBy(x => x.Date)
+                .ToListAsync();
 
-            //if (transactions != null)
-            //{
-            //    _transactionDbContext.Entry(transactions).State = EntityState.Detached;
-            //}
-            //return await (Task<IEnumerable<Transaction>>)transactions;
+            IEnumerable<Transaction> transactions = listTransactions;
+            
+            return transactions;
+        }
+
+        public async Task<IEnumerable<Transaction>> GetTransactionsByDateAsync(string accountNumber, DateTime startDate, DateTime finalDate)
+        {
+            var listTransactions = await _transactionDbContext.Transactions
+                .Where(x => x.AccountNumber == accountNumber
+                        && (x.Date >= startDate && x.Date <= finalDate))
+                .OrderBy(x => x.Date)
+                .ToListAsync();
+
+            IEnumerable<Transaction> transactions = listTransactions;
+
+            return transactions;
         }
 
         public async Task<Transaction> CreateAsync(Transaction transaction)

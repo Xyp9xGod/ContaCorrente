@@ -42,5 +42,52 @@ namespace ContaCorrente.API.Controllers
                 return Problem(ex.Message);
             }
         }
+
+        [HttpGet("{accountNumber}/{startDate}/{finalDate}", Name = "GetTransactionsByPeriod")]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<IEnumerable<TransactionDTO>>> Get(string accountNumber, DateTime startDate, DateTime finalDate)
+        {
+            try
+            {
+                var transactions = await _transationService
+                    .GetTransactionsByDateAsync(accountNumber, startDate, finalDate);
+
+                if (transactions.Count() == 0)
+                {
+                    return NotFound("No movimentations found on this periodo.");
+                }
+                return Ok(transactions);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> Post([FromBody] TransactionDTO transactionDTO)
+        {
+            if (transactionDTO == null)
+                return BadRequest("Invalid Data.");
+        
+            try
+            {
+                await _transationService.Add(transactionDTO);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        
+            return new CreatedAtRouteResult("GetAllAccountTransactions", 
+                new { accountNumber = transactionDTO.AccountNumber }, transactionDTO);
+        }
     }
 }
