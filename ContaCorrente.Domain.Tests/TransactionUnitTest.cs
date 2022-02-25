@@ -19,7 +19,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateTransaction_WithValidId_ResultObjectValidState()
         {
-            Action action = () => new Transaction(1,"123456-0", "", 50, "C", DateTime.Now);
+            Action action = () => new Transaction(1,"123456-0", "371", 50, "C", DateTime.Now);
             action.Should()
                 .NotThrow();
         }
