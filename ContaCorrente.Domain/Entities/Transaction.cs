@@ -8,36 +8,34 @@ namespace ContaCorrente.Domain.Entities
         public string AccountNumber { get; private set; }
         public string BankCode { get; private set; }
         public double Value { get; private set; }
-        public string Type { get; private set; }
+        public int Type { get; private set; }
         public DateTime Date { get; private set; }
 
-        public Transaction(string accountNumber, string bankCode, double value, string type, DateTime date)
+        public Transaction(string accountNumber, string bankCode, double value, int type, DateTime date)
         {
             ValidateDomain(accountNumber, bankCode, value, type, date);
         }
 
-        public Transaction(int id, string accountNumber, string bankCode, double value, string type, DateTime date)
+        public Transaction(int id, string accountNumber, string bankCode, double value, int type, DateTime date)
         {
             DomainExceptionValidation.When(id <= 0, "Invalid Id value.");
             Id = id;
             ValidateDomain(accountNumber, bankCode, value, type, date);
         }
 
-        public void Update(string accountNumber, string bankCode, double value, string type, DateTime date)
+        public void Update(string accountNumber, string bankCode, double value, int type, DateTime date)
         {
             ValidateDomain(accountNumber, bankCode, value, type, date);
         }
 
-        private void ValidateDomain(string accountNumber, string bankCode, double value, string type, DateTime date)
+        private void ValidateDomain(string accountNumber, string bankCode, double value, int type, DateTime date)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(accountNumber), "Invalid Account Number, Account Number is required.");
             DomainExceptionValidation.When(accountNumber.Length != 8, "Invalid Account Number, Account Number Should have 8 characters.");
             DomainExceptionValidation.When(string.IsNullOrEmpty(bankCode), "Invalid Bank Code, Bank Code is required.");
             DomainExceptionValidation.When(bankCode.Length != 3, "Invalid Bank Code, Bank Code Should have 3 characters.");
             DomainExceptionValidation.When(value < 0, "Invalid Value.");
-            DomainExceptionValidation.When(string.IsNullOrEmpty(type), "Invalid Type, Type is required.");
-            DomainExceptionValidation.When(!type.Trim().Equals("C") && !type.Trim().Equals("D"), "Invalid Type, Type Should be C for Credit or D for Debit");
-
+            
             AccountNumber = accountNumber;
             BankCode = bankCode;
             Value = value;

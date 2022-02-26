@@ -1,4 +1,5 @@
 ﻿using ContaCorrente.Domain.Entities;
+using ContaCorrente.Domain.Enums;
 using FluentAssertions;
 using System;
 using Xunit;
@@ -10,7 +11,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateTransaction_WithInvalidId_ResultObjectValidState()
         {
-            Action action = () => new Transaction(0, "123456-0", "", 50, "C", DateTime.Now);
+            Action action = () => new Transaction(0, "123456-0", "", 50, (int)TransactionType.Type.Deposit, DateTime.Now);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Id value.");
@@ -19,7 +20,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateTransaction_WithValidId_ResultObjectValidState()
         {
-            Action action = () => new Transaction(1,"123456-0", "371", 50, "C", DateTime.Now);
+            Action action = () => new Transaction(1,"123456-0", "371", 50, (int)TransactionType.Type.Deposit, DateTime.Now);
             action.Should()
                 .NotThrow();
         }
@@ -27,7 +28,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateTransaction_WithoutAccountNumber_ResultObjectValidState()
         {
-            Action action = () => new Transaction("", "371", 50, "C", DateTime.Now);
+            Action action = () => new Transaction("", "371", 50, (int)TransactionType.Type.Deposit, DateTime.Now);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Account Number, Account Number is required.");
@@ -36,7 +37,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateTransaction_WithWrongAccountNumberSize_ResultObjectValidState()
         {
-            Action action = () => new Transaction("00123-3", "371", 50, "C", DateTime.Now);
+            Action action = () => new Transaction("00123-3", "371", 50, (int)TransactionType.Type.Deposit, DateTime.Now);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Account Number, Account Number Should have 8 characters.");
@@ -45,7 +46,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateTransaction_WithWrongBankCodeSize_ResultObjectValidState()
         {
-            Action action = () => new Transaction("123456-0", "0371", 50, "C", DateTime.Now);
+            Action action = () => new Transaction("123456-0", "0371", 50, (int)TransactionType.Type.Deposit, DateTime.Now);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Bank Code, Bank Code Should have 3 characters.");
@@ -54,7 +55,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateTransaction_WithoutBankCode_ResultObjectValidState()
         {
-            Action action = () => new Transaction("123456-0", "", 50, "C", DateTime.Now);
+            Action action = () => new Transaction("123456-0", "", 50, (int)TransactionType.Type.Deposit, DateTime.Now);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Bank Code, Bank Code is required.");
@@ -63,36 +64,10 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateTransaction_WithInvalidValue_ResultObjectValidState()
         {
-            Action action = () => new Transaction("123456-0", "371", -5.78, "C", DateTime.Now);
+            Action action = () => new Transaction("123456-0", "371", -5.78, (int)TransactionType.Type.Deposit, DateTime.Now);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Value.");
-        }
-
-        [Fact]
-        public void CreateTransaction_WithoutType_ResultObjectValidState()
-        {
-            Action action = () => new Transaction("123456-0", "371", 50.00, "", DateTime.Now);
-            action.Should()
-                .Throw<Validations.DomainExceptionValidation>()
-                .WithMessage("Invalid Type, Type is required.");
-        }
-
-        [Fact]
-        public void CreateTransaction_WithInvalideType_ResultObjectValidState()
-        {
-            Action action = () => new Transaction("123456-0", "371", 89.35, "F", DateTime.Now);
-            action.Should()
-                .Throw<Validations.DomainExceptionValidation>()
-                .WithMessage("Invalid Type, Type Should be C for Credit or D for Debit");
-        }
-
-        [Fact]
-        public void CreateTransaction_WithValideType_ResultObjectValidState()
-        {
-            Action action = () => new Transaction("123456-0", "371", 78.96, "C", DateTime.Now);
-            action.Should()
-                .NotThrow();
         }
     }
 }
