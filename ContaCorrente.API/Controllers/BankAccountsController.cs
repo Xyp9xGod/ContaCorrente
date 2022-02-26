@@ -149,38 +149,5 @@ namespace ContaCorrente.API.Controllers
                     "Error deleting account: " + ex.Message);
             }
         }
-        /*
-        [HttpPut("Transactions/Deposit/")]
-        [Produces(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult> Deposit(DepositDTO depositDTO)
-        {
-
-            if (depositDTO == null)
-                return BadRequest("Invalid Data.");
-            //
-            //var bankAccount = await _bankAccountService.GetByAccountNumberAsync(bankAccountDTO.AccountNumber);
-            //
-            //if (bankAccount == null)
-            //{
-            //    return NotFound("Account Not Found.");
-            //}
-            //else
-            //{
-            //    bankAccountDTO.Id = bankAccount.Id;
-            //}
-            return NotFound("Not Found.");
-            //try
-            //{
-                //await _bankAccountService.UpdateBalance(mapper.toEntity  depositDTO);
-            //}
-            //catch (Exception ex)
-            //{
-            //    return BadRequest("Error trying to update de account: " + ex.Message);
-            //}
-            //return Ok(bankAccountDTO);
-        }*/
     }
 }

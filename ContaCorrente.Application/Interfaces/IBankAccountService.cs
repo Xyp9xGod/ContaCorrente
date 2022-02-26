@@ -12,6 +12,8 @@ namespace ContaCorrente.Application.Interfaces
         Task Add(BankAccountDTO bankAccountDTO);
         Task Update(BankAccountDTO bankAccountDTO);
         Task Remove(string accountNumber);
-        Task DepositAsync(BankAccountDTO bankAccountDTO, double value, DateTime dateTime);
+        Task DepositAsync(BankAccountDTO bankAccountDTO, double value, DateTime date);
+        Task WithdrawlAsync(BankAccountDTO bankAccountDTO, double value, DateTime date);
+        Task PaymentAsync(BankAccountDTO bankAccountDTO, double value, DateTime date);
     }
 }

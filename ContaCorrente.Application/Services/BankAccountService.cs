@@ -56,5 +56,17 @@ namespace ContaCorrente.Application.Services
             var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
             await _bankAccoutRepository.DepositAsync(bankAcccountEntity, value, date);
         }
+
+        public async Task WithdrawlAsync(BankAccountDTO bankAccountDTO, double value, DateTime date)
+        {
+            var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
+            await _bankAccoutRepository.WithdrawlAsync(bankAcccountEntity, value, date);
+        }
+
+        public async Task PaymentAsync(BankAccountDTO bankAccountDTO, double value, DateTime date)
+        {
+            var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
+            await _bankAccoutRepository.PaymentAsync(bankAcccountEntity, value, date);
+        }
     }
 }

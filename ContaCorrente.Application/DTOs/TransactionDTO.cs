@@ -30,7 +30,7 @@ namespace ContaCorrente.Application.DTOs
 
         [DisplayName("Type")]
         public int Type { get; set; }
-        
+
         [DisplayName("Date")]
         public DateTime Date { get; set; }
     }

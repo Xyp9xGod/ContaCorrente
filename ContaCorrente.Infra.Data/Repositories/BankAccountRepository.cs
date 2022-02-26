@@ -5,7 +5,6 @@ using ContaCorrente.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ContaCorrente.Infra.Data.Repositories
@@ -57,25 +56,68 @@ namespace ContaCorrente.Infra.Data.Repositories
 
         public async Task<BankAccount> DepositAsync(BankAccount bankAccount, double value, DateTime date)
         {
-            var account = GetByAccountNumberAsync(bankAccount.AccountNumber);
-            if (account == null)
-            {
-                throw new Exception("Account not found.");
-            }
             try
             {
                 var transaction = new Transaction(bankAccount.AccountNumber,
-                    bankAccount.BankCode, value, (int)TransactionType.Type.Deposit, date);
+                    bankAccount.BankCode, value,
+                    (int)TransactionType.Type.Deposit, date != DateTime.MinValue ? date : DateTime.Today);
+                
                 await _bankAccountContext.Transactions.AddAsync(transaction);
-                await _bankAccountContext.SaveChangesAsync();
-
+                
                 bankAccount.Deposit(value);
-
+                
+                await _bankAccountContext.SaveChangesAsync();
                 await UpdateAsync(bankAccount);
             }
             catch (Exception ex)
             {
-                throw new Exception("Problems to make de deposit, please try again later. " + ex);
+                throw new Exception("Problems to make the deposit, please try again later. " + ex);
+            }
+
+            return bankAccount;
+        }
+
+        public async Task<BankAccount> WithdrawlAsync(BankAccount bankAccount, double value, DateTime date)
+        {
+            try
+            {
+                var transaction = new Transaction(bankAccount.AccountNumber,
+                    bankAccount.BankCode, value,
+                    (int)TransactionType.Type.Withdrawl, date != DateTime.MinValue ? date : DateTime.Today);
+                
+                await _bankAccountContext.Transactions.AddAsync(transaction);
+
+                bankAccount.Withdraw(value);
+
+                await _bankAccountContext.SaveChangesAsync();
+                await UpdateAsync(bankAccount);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Problems to make the withdrawl, please try again later. " + ex);
+            }
+
+            return bankAccount;
+        }
+
+        public async Task<BankAccount> PaymentAsync(BankAccount bankAccount, double value, DateTime date)
+        {
+            try
+            {
+                var transaction = new Transaction(bankAccount.AccountNumber,
+                    bankAccount.BankCode, value,
+                    (int)TransactionType.Type.Payment, date != DateTime.MinValue ? date : DateTime.Today);
+
+                await _bankAccountContext.Transactions.AddAsync(transaction);
+
+                bankAccount.Payment(value);
+
+                await _bankAccountContext.SaveChangesAsync();
+                await UpdateAsync(bankAccount);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Problems to make the payment, please try again later. " + ex);
             }
 
             return bankAccount;

@@ -13,5 +13,7 @@ namespace ContaCorrente.Domain.Interfaces
         Task<BankAccount> UpdateAsync(BankAccount bankAccount);
         Task<BankAccount> RemoveAsync(BankAccount bankAccount);
         Task<BankAccount> DepositAsync(BankAccount bankAccount, double value, DateTime date);
+        Task<BankAccount> WithdrawlAsync(BankAccount bankAccount, double value, DateTime date);
+        Task<BankAccount> PaymentAsync(BankAccount bankAccount, double value, DateTime date);
     }
 }

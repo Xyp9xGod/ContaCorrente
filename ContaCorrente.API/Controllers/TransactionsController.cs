@@ -15,10 +15,12 @@ namespace ContaCorrente.API.Controllers
     public class TransactionsController : ControllerBase
     {
         private ITransactionService _transactionService;
+        private IBankAccountService _bankAccountService;
 
-        public TransactionsController(ITransactionService transactionService)
+        public TransactionsController(ITransactionService transactionService, IBankAccountService bankAccountService)
         {
             _transactionService = transactionService;
+            _bankAccountService = bankAccountService;
         }
 
         [HttpGet("{accountNumber}", Name = "GetAllAccountTransactions")]
@@ -68,29 +70,89 @@ namespace ContaCorrente.API.Controllers
                     "Error getting transactions: " + ex.Message);
             }
         }
-
-        [HttpPost]
+                
+        [HttpPost("Deposit/")]
         [Produces(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Post(TransactionDTO transactionDTO)
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Deposit(TransactionDTO transactionDTO)
         {
             if (transactionDTO == null)
                 return BadRequest("Invalid Data.");
-        
+            
+            var bankAccount = await _bankAccountService.GetByAccountNumberAsync(transactionDTO.AccountNumber);
+            
+            if (bankAccount == null)
+            {
+                return NotFound("Account Not Found.");
+            }
+
             try
             {
-                await _transactionService.Add(transactionDTO);
+                await _bankAccountService.DepositAsync(bankAccount, transactionDTO.Value, transactionDTO.Date);
+                return Ok(transactionDTO);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error making the transaction: "+ ex.Message);
+                return BadRequest("Error trying to make the deposit: " + ex.Message);
             }
-        
-            return new CreatedAtRouteResult("GetAllAccountTransactions", 
-                new { accountNumber = transactionDTO.AccountNumber }, transactionDTO);
+        }
+
+        [HttpPost("Withdrawl/")]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Withdrawl(TransactionDTO transactionDTO)
+        {
+            if (transactionDTO == null)
+                return BadRequest("Invalid Data.");
+
+            var bankAccount = await _bankAccountService.GetByAccountNumberAsync(transactionDTO.AccountNumber);
+
+            if (bankAccount == null)
+            {
+                return NotFound("Account Not Found.");
+            }
+
+            try
+            {
+                await _bankAccountService.WithdrawlAsync(bankAccount, transactionDTO.Value, transactionDTO.Date);
+                return Ok(transactionDTO);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error trying to make the withdral: " + ex.Message);
+            }
+        }
+
+        [HttpPost("Payment/")]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult> Payment(TransactionDTO transactionDTO)
+        {
+            if (transactionDTO == null)
+                return BadRequest("Invalid Data.");
+
+            var bankAccount = await _bankAccountService.GetByAccountNumberAsync(transactionDTO.AccountNumber);
+
+            if (bankAccount == null)
+            {
+                return NotFound("Account Not Found.");
+            }
+
+            try
+            {
+                await _bankAccountService.PaymentAsync(bankAccount, transactionDTO.Value, transactionDTO.Date);
+                return Ok(transactionDTO);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error trying to make the payment: " + ex.Message);
+            }
         }
     }
 }
