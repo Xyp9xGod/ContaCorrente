@@ -11,7 +11,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateTransaction_WithInvalidId_ResultObjectValidState()
         {
-            Action action = () => new Transaction(0, "123456-0", "", 50, (int)TransactionType.Type.Deposit, DateTime.Now);
+            Action action = () => new Transaction(-1, "123456-0", "", 50, (int)TransactionType.Type.Deposit, DateTime.Now);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Id value.");
@@ -59,6 +59,15 @@ namespace ContaCorrente.Domain.Tests
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Bank Code, Bank Code is required.");
+        }
+
+        [Fact]
+        public void CreateTransaction_WithInvalidType_ResultObjectValidState()
+        {
+            Action action = () => new Transaction("123456-0", "371", 79, 0, DateTime.Now);
+            action.Should()
+                .Throw<Validations.DomainExceptionValidation>()
+                .WithMessage("Invalid Type.");
         }
 
         [Fact]

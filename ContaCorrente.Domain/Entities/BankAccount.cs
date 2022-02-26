@@ -22,11 +22,6 @@ namespace ContaCorrente.Domain.Entities
             ValidateDomain(accountNumber, bankCode, agencyNumber, balance);
         }
 
-        public void Update(string accountNumber, string bankCode, string agencyNumber, double balance)
-        {
-            ValidateDomain(accountNumber, bankCode, agencyNumber, balance);
-        }
-
         private void ValidateDomain(string accountNumber, string bankCode, string agencyNumber, double balance)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(accountNumber), "Invalid Account Number, Account Number is required.");

@@ -27,5 +27,11 @@ namespace ContaCorrente.Application.DTOs
         [DataType(DataType.Currency)]
         [Range(0.0, Double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
         public double Value { get; set; }
+
+        [DisplayName("Type")]
+        public int Type { get; set; }
+        
+        [DisplayName("Date")]
+        public DateTime Date { get; set; }
     }
 }

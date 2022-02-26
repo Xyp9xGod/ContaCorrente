@@ -10,7 +10,7 @@ namespace ContaCorrente.Domain.Tests
         [Fact]
         public void CreateBankAccount_WithInvalidId_ResultObjectValidState()
         {
-            Action action = () => new BankAccount(0, "123456-0", "371", "0001", 0);
+            Action action = () => new BankAccount(-1, "123456-0", "371", "0001", 0);
             action.Should()
                 .Throw<Validations.DomainExceptionValidation>()
                 .WithMessage("Invalid Id value.");

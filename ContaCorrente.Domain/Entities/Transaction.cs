@@ -1,4 +1,5 @@
-﻿using ContaCorrente.Domain.Validations;
+﻿using ContaCorrente.Domain.Enums;
+using ContaCorrente.Domain.Validations;
 using System;
 
 namespace ContaCorrente.Domain.Entities
@@ -18,13 +19,8 @@ namespace ContaCorrente.Domain.Entities
 
         public Transaction(int id, string accountNumber, string bankCode, double value, int type, DateTime date)
         {
-            DomainExceptionValidation.When(id <= 0, "Invalid Id value.");
+            DomainExceptionValidation.When(id < 0, "Invalid Id value.");
             Id = id;
-            ValidateDomain(accountNumber, bankCode, value, type, date);
-        }
-
-        public void Update(string accountNumber, string bankCode, double value, int type, DateTime date)
-        {
             ValidateDomain(accountNumber, bankCode, value, type, date);
         }
 
@@ -34,6 +30,11 @@ namespace ContaCorrente.Domain.Entities
             DomainExceptionValidation.When(accountNumber.Length != 8, "Invalid Account Number, Account Number Should have 8 characters.");
             DomainExceptionValidation.When(string.IsNullOrEmpty(bankCode), "Invalid Bank Code, Bank Code is required.");
             DomainExceptionValidation.When(bankCode.Length != 3, "Invalid Bank Code, Bank Code Should have 3 characters.");
+            DomainExceptionValidation.When(
+                type != (int)TransactionType.Type.Deposit &&
+                type != (int)TransactionType.Type.Withdrawl &&
+                type != (int)TransactionType.Type.Payment
+                , "Invalid Type.");
             DomainExceptionValidation.When(value < 0, "Invalid Value.");
             
             AccountNumber = accountNumber;
