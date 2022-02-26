@@ -34,7 +34,12 @@ namespace ContaCorrente.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
+                //app.UseSwagger();
+                //requesty body not showing content on version OAS3.
+                app.UseSwagger(options =>
+                {
+                    options.SerializeAsV2 = true;
+                });
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ContaCorrente.API v1"));
             }
 

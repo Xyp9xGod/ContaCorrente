@@ -49,19 +49,5 @@ namespace ContaCorrente.Infra.Data.Repositories
             await _transactionDbContext.SaveChangesAsync();
             return transaction;
         }
-
-        public async Task<Transaction> RemoveAsync(Transaction transaction)
-        {
-            _transactionDbContext.Remove(transaction);
-            await _transactionDbContext.SaveChangesAsync();
-            return transaction;
-        }
-
-        public async Task<Transaction> UpdateAsync(Transaction transaction)
-        {
-            _transactionDbContext.Update(transaction);
-            await _transactionDbContext.SaveChangesAsync();
-            return transaction;
-        }
     }
 }

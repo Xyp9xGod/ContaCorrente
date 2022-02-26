@@ -38,7 +38,8 @@ namespace ContaCorrente.API.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error getting accounts " + ex.Message);
             }
         }
 
@@ -60,7 +61,8 @@ namespace ContaCorrente.API.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error getting account " + ex.Message);
             }
         }
 
@@ -112,7 +114,8 @@ namespace ContaCorrente.API.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error deleting account " + ex.Message);
             }
         }
     }

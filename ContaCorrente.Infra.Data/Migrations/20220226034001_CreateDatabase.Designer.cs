@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContaCorrente.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220224223636_CreateDatabase")]
+    [Migration("20220226034001_CreateDatabase")]
     partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,10 +77,14 @@ namespace ContaCorrente.Infra.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AccountNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
 
                     b.Property<string>("BankCode")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -89,11 +93,50 @@ namespace ContaCorrente.Infra.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Value")
-                        .HasColumnType("float");
+                        .HasPrecision(10, 2)
+                        .HasColumnType("float(10)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Transactions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccountNumber = "123456-0",
+                            BankCode = "371",
+                            Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            Type = "C",
+                            Value = 36.450000000000003
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccountNumber = "123456-0",
+                            BankCode = "371",
+                            Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            Type = "D",
+                            Value = 11.5
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccountNumber = "345678-9",
+                            BankCode = "371",
+                            Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            Type = "C",
+                            Value = 78.0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AccountNumber = "345678-9",
+                            BankCode = "371",
+                            Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            Type = "D",
+                            Value = 96.120000000000005
+                        });
                 });
 #pragma warning restore 612, 618
         }

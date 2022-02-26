@@ -12,13 +12,13 @@ namespace ContaCorrente.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TransationsController : ControllerBase
+    public class TransactionsController : ControllerBase
     {
-        private ITransactionService _transationService;
+        private ITransactionService _transactionService;
 
-        public TransationsController(ITransactionService transationService)
+        public TransactionsController(ITransactionService transactionService)
         {
-            _transationService = transationService;
+            _transactionService = transactionService;
         }
 
         [HttpGet("{accountNumber}", Name = "GetAllAccountTransactions")]
@@ -30,7 +30,7 @@ namespace ContaCorrente.API.Controllers
         {
             try
             {
-                var transactions = await _transationService.GetAllAccountTransactionsAsync(accountNumber);
+                var transactions = await _transactionService.GetAllAccountTransactionsAsync(accountNumber);
                 if (transactions.Count() == 0)
                 {
                     return NotFound("No movimentations found.");
@@ -39,7 +39,8 @@ namespace ContaCorrente.API.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error getting transactions " + ex.Message);
             }
         }
 
@@ -52,7 +53,7 @@ namespace ContaCorrente.API.Controllers
         {
             try
             {
-                var transactions = await _transationService
+                var transactions = await _transactionService
                     .GetTransactionsByDateAsync(accountNumber, startDate, finalDate);
 
                 if (transactions.Count() == 0)
@@ -63,13 +64,14 @@ namespace ContaCorrente.API.Controllers
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error getting transactions " + ex.Message);
             }
         }
 
         [HttpPost]
         [Produces(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> Post([FromBody] TransactionDTO transactionDTO)
@@ -79,11 +81,12 @@ namespace ContaCorrente.API.Controllers
         
             try
             {
-                await _transationService.Add(transactionDTO);
+                await _transactionService.Add(transactionDTO);
             }
             catch (Exception ex)
             {
-                return Problem(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new employee record "+ ex.Message);
             }
         
             return new CreatedAtRouteResult("GetAllAccountTransactions", 
