@@ -40,7 +40,7 @@ namespace ContaCorrente.API.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error getting transactions " + ex.Message);
+                    "Error getting transactions: " + ex.Message);
             }
         }
 
@@ -65,7 +65,7 @@ namespace ContaCorrente.API.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error getting transactions " + ex.Message);
+                    "Error getting transactions: " + ex.Message);
             }
         }
 
@@ -74,7 +74,7 @@ namespace ContaCorrente.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> Post([FromBody] TransactionDTO transactionDTO)
+        public async Task<ActionResult> Post(TransactionDTO transactionDTO)
         {
             if (transactionDTO == null)
                 return BadRequest("Invalid Data.");
@@ -86,7 +86,7 @@ namespace ContaCorrente.API.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating new employee record "+ ex.Message);
+                    "Error making the transaction: "+ ex.Message);
             }
         
             return new CreatedAtRouteResult("GetAllAccountTransactions", 
