@@ -33,15 +33,15 @@ namespace ContaCorrente.Application.Services
             return _mapper.Map<BankAccountDTO>(bankAcccountEntity);
         }
 
-        public async Task Add(BankAccountDTO bankAccountDto)
+        public async Task Add(BankAccountDTO bankAccountDTO)
         {
-            var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDto);
+            var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
             await _bankAccoutRepository.CreateAsync(bankAcccountEntity);
         }
 
-        public async Task Update(BankAccountDTO bankAccountDto)
+        public async Task Update(BankAccountDTO bankAccountDTO)
         {
-            var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDto);
+            var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
             await _bankAccoutRepository.UpdateAsync(bankAcccountEntity);
         }
 
@@ -49,6 +49,12 @@ namespace ContaCorrente.Application.Services
         {
             var bankAcccountEntity = await _bankAccoutRepository.GetByAccountNumberAsync(accountNumber);
             await _bankAccoutRepository.RemoveAsync(bankAcccountEntity);
+        }
+
+        public async Task DepositAsync(BankAccountDTO bankAccountDTO, double value, DateTime date)
+        {
+            var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
+            await _bankAccoutRepository.DepositAsync(bankAcccountEntity, value, date);
         }
     }
 }

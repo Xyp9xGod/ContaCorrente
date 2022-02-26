@@ -10,6 +10,7 @@ namespace ContaCorrente.Application.Mappings
         {
             CreateMap<BankAccount, BankAccountDTO>().ReverseMap();
             CreateMap<Transaction, TransactionDTO>().ReverseMap();
+            //CreateMap<BankAccount, DepositDTO>().ReverseMap();
         }
     }
 }

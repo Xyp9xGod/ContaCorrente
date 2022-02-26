@@ -10,6 +10,12 @@ namespace ContaCorrente.Domain.Entities
         public string AgencyNumber { get; private set; }
         public double Balance { get; private set; }
 
+        public BankAccount Deposit(double value)
+        {
+            Balance += value;
+            return this;
+        }
+
         public BankAccount(string accountNumber, string bankCode, string agencyNumber, double balance)
         {
             ValidateDomain(accountNumber, bankCode, agencyNumber, balance);

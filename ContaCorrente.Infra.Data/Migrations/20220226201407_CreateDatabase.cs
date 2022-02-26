@@ -43,23 +43,17 @@ namespace ContaCorrente.Infra.Data.Migrations
             migrationBuilder.InsertData(
                 table: "BankAccounts",
                 columns: new[] { "Id", "AccountNumber", "AgencyNumber", "Balance", "BankCode" },
-                values: new object[,]
-                {
-                    { 1, "123456-0", "0001", 37.0, "371" },
-                    { 2, "678910-2", "0001", 79.0, "371" },
-                    { 3, "345678-9", "0001", 135.0, "371" }
-                });
+                values: new object[] { 1, "123456-0", "0001", 40.0, "371" });
 
             migrationBuilder.InsertData(
-                table: "Transactions",
-                columns: new[] { "Id", "AccountNumber", "BankCode", "Date", "Type", "Value" },
-                values: new object[,]
-                {
-                    { 1, "123456-0", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), 1, 36.45 },
-                    { 2, "123456-0", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), 2, 11.5 },
-                    { 3, "345678-9", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), 1, 78.0 },
-                    { 4, "345678-9", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), 3, 96.12 }
-                });
+                table: "BankAccounts",
+                columns: new[] { "Id", "AccountNumber", "AgencyNumber", "Balance", "BankCode" },
+                values: new object[] { 2, "678910-2", "0001", 60.0, "371" });
+
+            migrationBuilder.InsertData(
+                table: "BankAccounts",
+                columns: new[] { "Id", "AccountNumber", "AgencyNumber", "Balance", "BankCode" },
+                values: new object[] { 3, "345678-9", "0001", 150.0, "371" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -1,4 +1,5 @@
 ﻿using ContaCorrente.Application.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,8 +9,9 @@ namespace ContaCorrente.Application.Interfaces
     {
         Task<IEnumerable<BankAccountDTO>> GetAllAccountsAsync();
         Task<BankAccountDTO> GetByAccountNumberAsync(string accountNumber);
-        Task Add(BankAccountDTO bankAccountDto);
-        Task Update(BankAccountDTO bankAccountDto);
+        Task Add(BankAccountDTO bankAccountDTO);
+        Task Update(BankAccountDTO bankAccountDTO);
         Task Remove(string accountNumber);
+        Task DepositAsync(BankAccountDTO bankAccountDTO, double value, DateTime dateTime);
     }
 }

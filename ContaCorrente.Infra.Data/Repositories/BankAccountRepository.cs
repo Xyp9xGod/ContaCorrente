@@ -1,4 +1,5 @@
 ﻿using ContaCorrente.Domain.Entities;
+using ContaCorrente.Domain.Enums;
 using ContaCorrente.Domain.Interfaces;
 using ContaCorrente.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,32 @@ namespace ContaCorrente.Infra.Data.Repositories
         {
             _bankAccountContext.Update(bankAccount);
             await _bankAccountContext.SaveChangesAsync();
+            return bankAccount;
+        }
+
+        public async Task<BankAccount> DepositAsync(BankAccount bankAccount, double value, DateTime date)
+        {
+            var account = GetByAccountNumberAsync(bankAccount.AccountNumber);
+            if (account == null)
+            {
+                throw new Exception("Account not found.");
+            }
+            try
+            {
+                var transaction = new Transaction(bankAccount.AccountNumber,
+                    bankAccount.BankCode, value, (int)TransactionType.Type.Deposit, date);
+                await _bankAccountContext.Transactions.AddAsync(transaction);
+                await _bankAccountContext.SaveChangesAsync();
+
+                bankAccount.Deposit(value);
+
+                await UpdateAsync(bankAccount);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Problems to make de deposit, please try again later. " + ex);
+            }
+
             return bankAccount;
         }
     }

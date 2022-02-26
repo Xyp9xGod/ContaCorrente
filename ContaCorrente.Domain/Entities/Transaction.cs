@@ -43,6 +43,5 @@ namespace ContaCorrente.Domain.Entities
             Type = type;
             Date = date;
         }
-
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ContaCorrente.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,5 +12,6 @@ namespace ContaCorrente.Domain.Interfaces
         Task<BankAccount> CreateAsync(BankAccount bankAccount);
         Task<BankAccount> UpdateAsync(BankAccount bankAccount);
         Task<BankAccount> RemoveAsync(BankAccount bankAccount);
+        Task<BankAccount> DepositAsync(BankAccount bankAccount, double value, DateTime date);
     }
 }

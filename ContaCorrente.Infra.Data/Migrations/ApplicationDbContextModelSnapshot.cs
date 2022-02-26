@@ -54,7 +54,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                             Id = 1,
                             AccountNumber = "123456-0",
                             AgencyNumber = "0001",
-                            Balance = 37.0,
+                            Balance = 40.0,
                             BankCode = "371"
                         },
                         new
@@ -62,7 +62,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                             Id = 2,
                             AccountNumber = "678910-2",
                             AgencyNumber = "0001",
-                            Balance = 79.0,
+                            Balance = 60.0,
                             BankCode = "371"
                         },
                         new
@@ -70,7 +70,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                             Id = 3,
                             AccountNumber = "345678-9",
                             AgencyNumber = "0001",
-                            Balance = 135.0,
+                            Balance = 150.0,
                             BankCode = "371"
                         });
                 });
@@ -104,44 +104,6 @@ namespace ContaCorrente.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Transactions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccountNumber = "123456-0",
-                            BankCode = "371",
-                            Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            Type = 1,
-                            Value = 36.450000000000003
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AccountNumber = "123456-0",
-                            BankCode = "371",
-                            Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            Type = 2,
-                            Value = 11.5
-                        },
-                        new
-                        {
-                            Id = 3,
-                            AccountNumber = "345678-9",
-                            BankCode = "371",
-                            Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            Type = 1,
-                            Value = 78.0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            AccountNumber = "345678-9",
-                            BankCode = "371",
-                            Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            Type = 3,
-                            Value = 96.120000000000005
-                        });
                 });
 #pragma warning restore 612, 618
         }
