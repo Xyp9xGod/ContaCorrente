@@ -101,11 +101,14 @@ namespace ContaCorrente.API.Controllers
                 return BadRequest("Invalid Data.");
 
             var bankAccount = await _bankAccountService.GetByAccountNumberAsync(bankAccountDTO.AccountNumber);
-            bankAccountDTO.Id = bankAccount.Id;
 
-            if (bankAccountDTO == null)
+            if (bankAccount == null)
             {
                 return NotFound("Account Not Found.");
+            }
+            else
+            {
+                bankAccountDTO.Id = bankAccount.Id;
             }
 
             try

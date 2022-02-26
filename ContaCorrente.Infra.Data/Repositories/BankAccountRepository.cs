@@ -36,6 +36,7 @@ namespace ContaCorrente.Infra.Data.Repositories
         {
             _bankAccountContext.Add(bankAccount);
             await _bankAccountContext.SaveChangesAsync();
+            
             return bankAccount;
         }
 

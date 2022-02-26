@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContaCorrente.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220226034001_CreateDatabase")]
+    [Migration("20220226135051_CreateDatabase")]
     partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,11 @@ namespace ContaCorrente.Infra.Data.Migrations
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
+                    b.Property<string>("AgencyNumber")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
                     b.Property<double>("Balance")
                         .HasColumnType("float");
 
@@ -50,6 +55,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                         {
                             Id = 1,
                             AccountNumber = "123456-0",
+                            AgencyNumber = "0001",
                             Balance = 37.0,
                             BankCode = "371"
                         },
@@ -57,6 +63,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                         {
                             Id = 2,
                             AccountNumber = "678910-2",
+                            AgencyNumber = "0001",
                             Balance = 79.0,
                             BankCode = "371"
                         },
@@ -64,6 +71,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                         {
                             Id = 3,
                             AccountNumber = "345678-9",
+                            AgencyNumber = "0001",
                             Balance = 135.0,
                             BankCode = "371"
                         });
@@ -89,12 +97,11 @@ namespace ContaCorrente.Infra.Data.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.Property<double>("Value")
-                        .HasPrecision(10, 2)
-                        .HasColumnType("float(10)");
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -107,7 +114,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                             AccountNumber = "123456-0",
                             BankCode = "371",
                             Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            Type = "C",
+                            Type = 1,
                             Value = 36.450000000000003
                         },
                         new
@@ -116,7 +123,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                             AccountNumber = "123456-0",
                             BankCode = "371",
                             Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            Type = "D",
+                            Type = 2,
                             Value = 11.5
                         },
                         new
@@ -125,7 +132,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                             AccountNumber = "345678-9",
                             BankCode = "371",
                             Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            Type = "C",
+                            Type = 1,
                             Value = 78.0
                         },
                         new
@@ -134,7 +141,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                             AccountNumber = "345678-9",
                             BankCode = "371",
                             Date = new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local),
-                            Type = "D",
+                            Type = 3,
                             Value = 96.120000000000005
                         });
                 });

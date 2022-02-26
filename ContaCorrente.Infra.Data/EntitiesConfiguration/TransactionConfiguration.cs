@@ -12,7 +12,7 @@ namespace ContaCorrente.Infra.Data.EntitiesConfiguration
             builder.HasKey(t => t.Id);
             builder.Property(p => p.AccountNumber).HasMaxLength(8).IsRequired();
             builder.Property(p => p.BankCode).HasMaxLength(3).IsRequired();
-            builder.Property(p => p.Value).HasPrecision(10,2).IsRequired();
+            builder.Property(p => p.Value).IsRequired();
             builder.Property(p => p.Date).IsRequired();
             builder.HasData(
                 new Transaction(1, "123456-0", "371", 36.45, (int)TransactionType.Type.Deposit, System.DateTime.Today),

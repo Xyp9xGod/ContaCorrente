@@ -22,6 +22,12 @@ namespace ContaCorrente.Application.DTOs
         [DisplayName("Bank Code")]
         public string BankCode { get; set; }
 
+        [Required(ErrorMessage = "Agency Number is Required")]
+        [MinLength(4)]
+        [MaxLength(4)]
+        [DisplayName("Agency Number")]
+        public string AgencyNumber { get; set; }
+
         [Required(ErrorMessage = "Balance is Required")]
         [DisplayName("Balance")]
         [DataType(DataType.Currency)]

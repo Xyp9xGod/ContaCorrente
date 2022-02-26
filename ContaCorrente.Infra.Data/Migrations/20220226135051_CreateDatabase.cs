@@ -15,6 +15,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AccountNumber = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     BankCode = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
+                    AgencyNumber = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
                     Balance = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
@@ -30,8 +31,8 @@ namespace ContaCorrente.Infra.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AccountNumber = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     BankCode = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    Value = table.Column<double>(type: "float(10)", precision: 10, scale: 2, nullable: false),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Value = table.Column<double>(type: "float", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
@@ -41,12 +42,12 @@ namespace ContaCorrente.Infra.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "BankAccounts",
-                columns: new[] { "Id", "AccountNumber", "Balance", "BankCode" },
+                columns: new[] { "Id", "AccountNumber", "AgencyNumber", "Balance", "BankCode" },
                 values: new object[,]
                 {
-                    { 1, "123456-0", 37.0, "371" },
-                    { 2, "678910-2", 79.0, "371" },
-                    { 3, "345678-9", 135.0, "371" }
+                    { 1, "123456-0", "0001", 37.0, "371" },
+                    { 2, "678910-2", "0001", 79.0, "371" },
+                    { 3, "345678-9", "0001", 135.0, "371" }
                 });
 
             migrationBuilder.InsertData(
@@ -54,10 +55,10 @@ namespace ContaCorrente.Infra.Data.Migrations
                 columns: new[] { "Id", "AccountNumber", "BankCode", "Date", "Type", "Value" },
                 values: new object[,]
                 {
-                    { 1, "123456-0", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), "C", 36.450000000000003 },
-                    { 2, "123456-0", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), "D", 11.5 },
-                    { 3, "345678-9", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), "C", 78.0 },
-                    { 4, "345678-9", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), "D", 96.120000000000005 }
+                    { 1, "123456-0", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), 1, 36.45 },
+                    { 2, "123456-0", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), 2, 11.5 },
+                    { 3, "345678-9", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), 1, 78.0 },
+                    { 4, "345678-9", "371", new DateTime(2022, 2, 26, 0, 0, 0, 0, DateTimeKind.Local), 3, 96.12 }
                 });
         }
 
