@@ -4,10 +4,6 @@ Sistema de controle de conta corrente bancária, processando solicitações de d
 
 #TODO
 
-1.Testar bem os métodos de Busca por número e Exclusão.
+1.POST de Transactions
 
-2.Alterar o banco de sql para mysql projeto IoC
-
-3.Verificar porque não gera os parametros do POST e PUT de Contas.
-
-4.Método GetAllAccountTransactionsAsync ainda precisa ser corrigido.
+2.Alterar Type para Enum
