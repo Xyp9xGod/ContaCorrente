@@ -3,17 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.Domain", "ContaCorrente.Domain\ContaCorrente.Domain.csproj", "{9522F68F-C647-4EF7-BDDA-7DE54544A7CF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{932D8224-11F6-4D07-B109-DA28AD288A63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.Domain.Tests", "ContaCorrente.Domain.Tests\ContaCorrente.Domain.Tests.csproj", "{80A45110-30DA-4801-90CD-6C3AAD9BEBEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.Domain", "src\ContaCorrente.Domain\ContaCorrente.Domain.csproj", "{9522F68F-C647-4EF7-BDDA-7DE54544A7CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.Infra.Data", "ContaCorrente.Infra.Data\ContaCorrente.Infra.Data.csproj", "{FF09FF5B-9240-4713-802E-E6340C383497}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.Domain.Tests", "src\ContaCorrente.Domain.Tests\ContaCorrente.Domain.Tests.csproj", "{80A45110-30DA-4801-90CD-6C3AAD9BEBEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.IoC", "ContaCorrente.IoC\ContaCorrente.IoC.csproj", "{0FEC58E9-61FA-4F6B-93B5-FE2064DAEDEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.Infra.Data", "src\ContaCorrente.Infra.Data\ContaCorrente.Infra.Data.csproj", "{FF09FF5B-9240-4713-802E-E6340C383497}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.Application", "ContaCorrente.Application\ContaCorrente.Application.csproj", "{32C5E885-D5A8-4C58-A71F-D10971E7ED0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.IoC", "src\ContaCorrente.IoC\ContaCorrente.IoC.csproj", "{0FEC58E9-61FA-4F6B-93B5-FE2064DAEDEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.API", "ContaCorrente.API\ContaCorrente.API.csproj", "{23585FAB-C9B0-4862-9F5B-07B024B80877}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.Application", "src\ContaCorrente.Application\ContaCorrente.Application.csproj", "{32C5E885-D5A8-4C58-A71F-D10971E7ED0A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.API", "src\ContaCorrente.API\ContaCorrente.API.csproj", "{23585FAB-C9B0-4862-9F5B-07B024B80877}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{400B1D7B-1762-407E-8DCF-104E88393617}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.API.Tests", "ContaCorrente.API.Tests\ContaCorrente.API.Tests.csproj", "{BC836B64-9B2C-4C26-A255-8BCB063C3FFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +51,22 @@ Global
 		{23585FAB-C9B0-4862-9F5B-07B024B80877}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23585FAB-C9B0-4862-9F5B-07B024B80877}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23585FAB-C9B0-4862-9F5B-07B024B80877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC836B64-9B2C-4C26-A255-8BCB063C3FFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC836B64-9B2C-4C26-A255-8BCB063C3FFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC836B64-9B2C-4C26-A255-8BCB063C3FFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC836B64-9B2C-4C26-A255-8BCB063C3FFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9522F68F-C647-4EF7-BDDA-7DE54544A7CF} = {932D8224-11F6-4D07-B109-DA28AD288A63}
+		{80A45110-30DA-4801-90CD-6C3AAD9BEBEC} = {400B1D7B-1762-407E-8DCF-104E88393617}
+		{FF09FF5B-9240-4713-802E-E6340C383497} = {932D8224-11F6-4D07-B109-DA28AD288A63}
+		{0FEC58E9-61FA-4F6B-93B5-FE2064DAEDEF} = {932D8224-11F6-4D07-B109-DA28AD288A63}
+		{32C5E885-D5A8-4C58-A71F-D10971E7ED0A} = {932D8224-11F6-4D07-B109-DA28AD288A63}
+		{23585FAB-C9B0-4862-9F5B-07B024B80877} = {932D8224-11F6-4D07-B109-DA28AD288A63}
+		{BC836B64-9B2C-4C26-A255-8BCB063C3FFE} = {400B1D7B-1762-407E-8DCF-104E88393617}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA065B6E-A09A-4A64-A4E4-3D20F9293B40}

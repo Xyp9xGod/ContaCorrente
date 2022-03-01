@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.EntityFrameworkCore.Metadata;
 
 namespace ContaCorrente.Infra.Data.Migrations
 {
-    public partial class CreateDatabase : Migration
+    public partial class Mysql : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,11 +13,11 @@ namespace ContaCorrente.Infra.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountNumber = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    BankCode = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    AgencyNumber = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: false),
-                    Balance = table.Column<double>(type: "float", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    AccountNumber = table.Column<string>(type: "varchar(8)", maxLength: 8, nullable: false),
+                    BankCode = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: false),
+                    AgencyNumber = table.Column<string>(type: "varchar(4)", maxLength: 4, nullable: false),
+                    Balance = table.Column<double>(type: "double", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,12 +29,12 @@ namespace ContaCorrente.Infra.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountNumber = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    BankCode = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
-                    Value = table.Column<double>(type: "float", nullable: false),
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
+                    AccountNumber = table.Column<string>(type: "varchar(8)", maxLength: 8, nullable: false),
+                    BankCode = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: false),
+                    Value = table.Column<double>(type: "double", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {

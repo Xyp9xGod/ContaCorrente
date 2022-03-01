@@ -48,7 +48,7 @@ namespace ContaCorrente.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<BankAccountDTO>>> Get(string accountNumber)
+        public async Task<ActionResult<IEnumerable<BankAccountDTO>>> GetByAccountNumber(string accountNumber)
         {
             try
             {

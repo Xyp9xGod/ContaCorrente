@@ -1,6 +1,8 @@
+using ContaCorrente.Infra.Data.Context;
 using ContaCorrente.IoC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -55,6 +57,23 @@ namespace ContaCorrente.API
             {
                 endpoints.MapControllers();
             });
+
+            ApplyMigration<ApplicationDbContext>(app);
+        }
+
+        private static void ApplyMigration<TContext>(IApplicationBuilder app)
+            where TContext : DbContext
+        {
+            var serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            
+            using var serviceScope = serviceScopeFactory.CreateScope();
+
+            var dbcontext = serviceScope.ServiceProvider.GetService<TContext>();
+            
+            if (dbcontext != null)
+            {
+                dbcontext.Database.Migrate();
+            }
         }
     }
 }
