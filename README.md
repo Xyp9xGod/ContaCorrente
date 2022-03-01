@@ -2,28 +2,22 @@
 
 Sistema de controle de conta corrente bancária, processando solicitações de depósito, resgates e pagamentos.
 
-
-# ContaAPI
- 
-Projeto que simula um sistema de conta corrente, no qual cada usuário tem uma carteira e pode fazer operações de depósito, retirada e pagamento por PIX. Também dentro do sistema existe uma rentabilização diária no valor de 100% do CDI para todas as carteiras, assim como o histórico de operações.
-
 O projeto tem uma camada:
 
-- Uma API RESTful com todos os serviços que foi desenvolvida em ASP.NET Core 3.1 com arquitetura DDD (Domain Driven Design), sendo o banco de dados utilizado MySQL com EF Core como ORM;
+- Uma API RESTful que foi desenvolvida em ASP.NET Core 5 com arquitetura DDD (Domain Driven Design), sendo o banco de dados utilizado MySQL com EF Core como ORM;
 
 ## Rodando no Visual Studio
 
 Para testar o projeto no Visual Studio basta seguir os seguintes passos:
 
-- Definir como **Multiple Startup Projects** os projetos ContaAPI.Application e ContaAPI.WebMVC nas propriedades da solution;
+- Definir o projeto ContaCorrente.API.Tests com a opção **Set as Startup Project** nas propriedades da solution;
 - Definir os dados do servidor e DB a ser utilizado no arquivo **appsettings.json** dentro do projeto ContaAPI.Application;
-- No **Package Manager Console** definir como **Default Project** o projeto ContaAPI.Infra.Data e executar o comando **Update-Database**;
+- No **Package Manager Console** definir como **Default Project** o projeto ContaCorrente.Infra.Data e executar o comando **Update-Database**;
 - Clicar em **Start** (F5).
 
-Ao executar estes passos, duas janelas irão se abrir: uma do aplicativo web MVC e a outra do swagger.
+Ao executar estes passos uma janelaa irá se abrir com o swagger da API.
 
-- Aplicativo Web MVC - http://localhost:51359
-- Swagger (API REST) - https://localhost:5001
+- Swagger (API REST) - https://localhost:44340/swagger/index.html
 
 ## API RESTful
 
@@ -43,7 +37,11 @@ Retorna uma lista de JSON com os dados de todas as contas cadastradas.
 
 Retorna um JSON com os dados da conta especificada.
 
-4. **Deleção de uma Conta** - [DELETE] /api/BankAccounts/{accountNumber}
+4. **Atualização de uma Conta** - [PUT] /api/BankAccounts
+
+Atualiza uma conta com os dados informados.
+
+5. **Deleção de uma Conta** - [DELETE] /api/BankAccounts/{accountNumber}
 
 Deleta uma conta através do seu número {accountNumber}.
 
@@ -78,18 +76,17 @@ Subtrai do saldo da conta corrente o valor informado.
 - Número da Agência: Obrigatório, tamanho máximo de 4 caracteres.
 - Saldo da Conta: O Valor Inicial não pode ser negativo.
 
-## Aplicativo Web MVC
+## Testes
 
-O aplicativo web MVC desenvolvido tem as funções de **login**, **logout**, **registro**, **saldo**, **depósito**, **retirada**, **pagamento**, **rentabilização** e **histórico** com sessão persistente e mensagens de erro das validações da API REST. O botão **Passar 1 dia** simula um dia de rentabilização com 100% do CDI. Os campos de **valor** das operações financeiras na interface visual aceitam ou **vírgula** ou **ponto** para as casas decimais, dependendo da língua utilizada no sistema.
-
-## Teste
-
-O projeto ContaAPI.IntegrationTests testa todas as operações válidas e a integração com o database. Para rodar deve-se definir os dados do servidor e DB a ser utilizado no arquivo **appsettings.json** deste projeto.
+- O projeto ContaCorrente.Domain.Tests testa todas as operações válidas no domínio da aplicação.
+- O projeto ContaCorrente.API.Tests testa as operações válidas na camada de API.
 
 ## Observações
 
 Ideias do que pode ser implementado ainda no projeto:
 
 - Sistema de transferência entre contas correntes;
-- Migration automática;
-- Sistema de autenticação por JWT.
+- Sistema de autenticação por JWT;
+- Expandir a cobertura de testes no projeto da API;
+- Testes de segurança;
+- Interface de usuário SPA para interagir com o sistema
