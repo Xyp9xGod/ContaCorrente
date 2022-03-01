@@ -2,14 +2,9 @@
 
 Sistema de controle de conta corrente bancária, processando solicitações de depósito, resgates e pagamentos.
 
-
-# ContaAPI
- 
-Projeto que simula um sistema de conta corrente, no qual cada usuário tem uma carteira e pode fazer operações de depósito, retirada e pagamento por PIX. Também dentro do sistema existe uma rentabilização diária no valor de 100% do CDI para todas as carteiras, assim como o histórico de operações.
-
 O projeto tem uma camada:
 
-- Uma API RESTful com todos os serviços que foi desenvolvida em ASP.NET Core 3.1 com arquitetura DDD (Domain Driven Design), sendo o banco de dados utilizado MySQL com EF Core como ORM;
+- Uma API RESTful que foi desenvolvida em ASP.NET Core 5 com arquitetura DDD (Domain Driven Design), sendo o banco de dados utilizado MySQL com EF Core como ORM;
 
 ## Rodando no Visual Studio
 
@@ -20,10 +15,9 @@ Para testar o projeto no Visual Studio basta seguir os seguintes passos:
 - No **Package Manager Console** definir como **Default Project** o projeto ContaAPI.Infra.Data e executar o comando **Update-Database**;
 - Clicar em **Start** (F5).
 
-Ao executar estes passos, duas janelas irão se abrir: uma do aplicativo web MVC e a outra do swagger.
+Ao executar estes passos uma janelaa irá se abrir com o swagger da API.
 
-- Aplicativo Web MVC - http://localhost:51359
-- Swagger (API REST) - https://localhost:5001
+- Swagger (API REST) - https://localhost:44340/swagger/index.html
 
 ## API RESTful
 
@@ -43,7 +37,11 @@ Retorna uma lista de JSON com os dados de todas as contas cadastradas.
 
 Retorna um JSON com os dados da conta especificada.
 
-4. **Deleção de uma Conta** - [DELETE] /api/BankAccounts/{accountNumber}
+4. **Atualização de uma Conta** - [PUT] /api/BankAccounts
+
+Atualiza uma conta com os dados informados.
+
+5. **Deleção de uma Conta** - [DELETE] /api/BankAccounts/{accountNumber}
 
 Deleta uma conta através do seu número {accountNumber}.
 
