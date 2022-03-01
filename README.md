@@ -78,8 +78,8 @@ Subtrai do saldo da conta corrente o valor informado.
 
 ## Testes
 
-O projeto ContaCorrente.Domain.Tests testa todas as operações válidas no domínio da aplicação.
-O projeto ContaCorrente.API.Tests testa as operações válidas na camada de API.
+- O projeto ContaCorrente.Domain.Tests testa todas as operações válidas no domínio da aplicação.
+- O projeto ContaCorrente.API.Tests testa as operações válidas na camada de API.
 
 ## Observações
 
