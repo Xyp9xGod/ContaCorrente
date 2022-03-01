@@ -21,9 +21,13 @@ namespace ContaCorrente.IoC
             //var port = configuration["DBPORT"] ?? "3306";
             //var password = configuration["DBPASSWORD"] ?? "root";
 
+            var host = configuration["DBHOST"];
+            var port = configuration["DBPORT"];
+            var password = configuration["DBPASSWORD"];
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySQL(configuration.GetConnectionString("DefaultConnection"))
-                //options.UseMySQL($"server={host}; database=WarrenDb; userid=root; pwd={password}; port={port};")
+                //options.UseMySQL(configuration.GetConnectionString("DefaultConnection"))
+                options.UseMySQL($"server={host}; database=warrendb; userid=root; pwd={password}; port={port};")
             );
 
             //registro dos repositorios
