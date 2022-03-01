@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ContaCorrente.Domain\ContaCorrente.Domain.csproj" />
+    <ProjectReference Include="..\..\src\ContaCorrente.Domain\ContaCorrente.Domain.csproj" />
   </ItemGroup>
 
 </Project>

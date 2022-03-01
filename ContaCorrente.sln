@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{932D8224-11F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.Domain", "src\ContaCorrente.Domain\ContaCorrente.Domain.csproj", "{9522F68F-C647-4EF7-BDDA-7DE54544A7CF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.Domain.Tests", "src\ContaCorrente.Domain.Tests\ContaCorrente.Domain.Tests.csproj", "{80A45110-30DA-4801-90CD-6C3AAD9BEBEC}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.Infra.Data", "src\ContaCorrente.Infra.Data\ContaCorrente.Infra.Data.csproj", "{FF09FF5B-9240-4713-802E-E6340C383497}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.IoC", "src\ContaCorrente.IoC\ContaCorrente.IoC.csproj", "{0FEC58E9-61FA-4F6B-93B5-FE2064DAEDEF}"
@@ -19,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.API", "src\Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{400B1D7B-1762-407E-8DCF-104E88393617}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContaCorrente.API.Tests", "ContaCorrente.API.Tests\ContaCorrente.API.Tests.csproj", "{BC836B64-9B2C-4C26-A255-8BCB063C3FFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.API.Tests", "tests\ContaCorrente.API.Tests\ContaCorrente.API.Tests.csproj", "{BC836B64-9B2C-4C26-A255-8BCB063C3FFE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContaCorrente.Domain.Tests", "tests\ContaCorrente.Domain.Tests\ContaCorrente.Domain.Tests.csproj", "{80A45110-30DA-4801-90CD-6C3AAD9BEBEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
