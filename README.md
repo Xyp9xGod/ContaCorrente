@@ -115,4 +115,6 @@ Ideias do que pode ser implementado ainda no projeto:
 - Sistema de autenticação por JWT;
 - Expandir a cobertura de testes no projeto da API;
 - Testes de segurança;
-- Interface de usuário SPA para interagir com o sistema
+- Interface de usuário SPA para interagir com o sistema;
+- Microservico de rendimento;
+- Escrever o detalhamento da documentação swagger.
