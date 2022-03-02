@@ -58,7 +58,7 @@ namespace ContaCorrente.API
                 endpoints.MapControllers();
             });
 
-            //ApplyMigration<ApplicationDbContext>(app);
+            ApplyMigration<ApplicationDbContext>(app);
         }
 
         private static void ApplyMigration<TContext>(IApplicationBuilder app)

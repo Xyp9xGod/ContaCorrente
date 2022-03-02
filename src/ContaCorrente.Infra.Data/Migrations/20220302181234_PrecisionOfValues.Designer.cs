@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContaCorrente.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220302063421_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20220302181234_PrecisionOfValues")]
+    partial class PrecisionOfValues
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,6 +36,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                         .HasColumnType("varchar(4)");
 
                     b.Property<double>("Balance")
+                        .HasPrecision(2)
                         .HasColumnType("double");
 
                     b.Property<string>("BankCode")
@@ -100,6 +101,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<double>("Value")
+                        .HasPrecision(2)
                         .HasColumnType("double");
 
                     b.HasKey("Id");

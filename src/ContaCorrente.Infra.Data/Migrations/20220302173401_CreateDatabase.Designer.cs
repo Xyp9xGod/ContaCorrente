@@ -3,14 +3,16 @@ using System;
 using ContaCorrente.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ContaCorrente.Infra.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220302173401_CreateDatabase")]
+    partial class CreateDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,6 @@ namespace ContaCorrente.Infra.Data.Migrations
                         .HasColumnType("varchar(4)");
 
                     b.Property<double>("Balance")
-                        .HasPrecision(2)
                         .HasColumnType("double");
 
                     b.Property<string>("BankCode")
@@ -99,7 +100,6 @@ namespace ContaCorrente.Infra.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<double>("Value")
-                        .HasPrecision(2)
                         .HasColumnType("double");
 
                     b.HasKey("Id");
