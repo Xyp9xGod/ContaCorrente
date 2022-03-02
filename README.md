@@ -45,23 +45,31 @@ Ao executar estes passos uma janelaa irá se abrir com o swagger da API.
 
 As chamadas relativas ao controle de contas são as seguintes:
 
-1. **Criação de Conta** - [POST] /api/BankAccounts
-
-Cria uma conta com os dados de Número da Conta, Código do Banco, Número da Agência e Saldo.
-
-2. **Busca todas as Contas** - [GET] /api/BankAccounts
+1. **Busca todas as Contas** - [GET] /api/BankAccounts
 
 Retorna uma lista de JSON com os dados de todas as contas cadastradas.
 
-3. **Busca Conta por Número** - [GET] /api/BankAccounts/{accountNumber}
+2. **Criação de Conta** - [POST] /api/BankAccounts
 
-Retorna um JSON com os dados da conta especificada.
+Cria uma conta com os dados de Número da Conta, Código do Banco, Número da Agência e Saldo.
 
-4. **Atualização de uma Conta** - [PUT] /api/BankAccounts
+3. **Atualização de uma Conta** - [PUT] /api/BankAccounts
 
 Atualiza uma conta com os dados informados.
 
-5. **Deleção de uma Conta** - [DELETE] /api/BankAccounts/{accountNumber}
+4. **Busca Saldo da Conta** - [GET] /api/BankAccounts/Balance/{accountNumber}
+
+Retorna um JSON com os dados da conta especificada.
+
+5. **Busca Histórico da Conta** - [GET] /api/BankAccounts/History/{accountNumber}
+
+Retorna um JSON com os dados da conta e todas as transações.
+
+6. **Busca Histórico da Conta Por Período** - [GET] /api/BankAccounts/PeriodHistory/{accountNumber}
+
+Retorna um JSON com os dados da conta especificada.
+
+7. **Deleção de uma Conta** - [DELETE] /api/BankAccounts/{accountNumber}
 
 Deleta uma conta através do seu número {accountNumber}.
 
@@ -69,23 +77,15 @@ Deleta uma conta através do seu número {accountNumber}.
 
 As chamadas relativas ao controle de conta corrente são as seguintes:
 
-1. **Extrato de uma Conta** - [GET] /api/Transactions/{accountNumber}
-
-Retorna uma lista de JSON com os dados de todas as transações da conta corrente.
-
-2. **Extrato de uma Conta por período** - [GET] /api/Transactions/{accountNumber}/{startDate}/{finalDate}
-
-Retorna um JSON com os dados de todas as transações da conta corrente no período.
-
-3. **Depósito** - [POST] /api/Transactions/Deposit
+1. **Depósito** - [POST] /api/Transactions/Deposit
 
 Adiciona ao saldo da conta corrente o valor informado.
 
-4. **Retirada** - [POST] /api/Transactions/Withdrawl
+2. **Retirada** - [POST] /api/Transactions/Withdrawl
 
 Subtrai do saldo da conta corrente o valor informado.
 
-5. **Pagamento** - [POST] /api/Transactions/Payment
+3. **Pagamento** - [POST] /api/Transactions/Payment
 
 Subtrai do saldo da conta corrente o valor informado.
 
