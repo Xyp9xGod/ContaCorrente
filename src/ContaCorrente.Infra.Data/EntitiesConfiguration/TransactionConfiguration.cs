@@ -1,5 +1,4 @@
 ﻿using ContaCorrente.Domain.Entities;
-using ContaCorrente.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,6 +13,8 @@ namespace ContaCorrente.Infra.Data.EntitiesConfiguration
             builder.Property(p => p.BankCode).HasMaxLength(3).IsRequired();
             builder.Property(p => p.Value).IsRequired();
             builder.Property(p => p.Date).IsRequired();
+            builder.HasOne(p => p.BankAccount).WithMany(p => p.Transactions)
+                .HasForeignKey(p => p.BankAccountId);
             //builder.HasData(
             //    new Transaction(1, "123456-0", "371", 50, (int)TransactionType.Type.Deposit, System.DateTime.Today),
             //    new Transaction(2, "123456-0", "371", 10, (int)TransactionType.Type.Withdrawl, System.DateTime.Today),

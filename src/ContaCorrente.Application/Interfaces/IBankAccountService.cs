@@ -9,8 +9,11 @@ namespace ContaCorrente.Application.Interfaces
     {
         Task<IEnumerable<BankAccountDTO>> GetAllAccountsAsync();
         Task<BankAccountDTO> GetByAccountNumberAsync(string accountNumber);
-        Task Add(BankAccountDTO bankAccountDTO);
-        Task Update(BankAccountDTO bankAccountDTO);
+        Task<BankAccountDTO> GetHistoryAsync(string accountNumber);
+        Task<BankAccountDTO> GetPeriodHistoryAsync(string accountNumber, DateTime startDate, DateTime finalDate);
+
+        Task Add(BankAccountModelDTO bankAccountDTO);
+        Task Update(BankAccountModelDTO bankAccountDTO);
         Task Remove(string accountNumber);
         Task DepositAsync(BankAccountDTO bankAccountDTO, double value, DateTime date);
         Task WithdrawlAsync(BankAccountDTO bankAccountDTO, double value, DateTime date);

@@ -4,7 +4,7 @@ using MySql.EntityFrameworkCore.Metadata;
 
 namespace ContaCorrente.Infra.Data.Migrations
 {
-    public partial class Mysql : Migration
+    public partial class CreateDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -34,11 +34,18 @@ namespace ContaCorrente.Infra.Data.Migrations
                     BankCode = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: false),
                     Value = table.Column<double>(type: "double", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime", nullable: false),
+                    BankAccountId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Transactions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Transactions_BankAccounts_BankAccountId",
+                        column: x => x.BankAccountId,
+                        principalTable: "BankAccounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -55,15 +62,20 @@ namespace ContaCorrente.Infra.Data.Migrations
                 table: "BankAccounts",
                 columns: new[] { "Id", "AccountNumber", "AgencyNumber", "Balance", "BankCode" },
                 values: new object[] { 3, "345678-9", "0001", 150.0, "371" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Transactions_BankAccountId",
+                table: "Transactions",
+                column: "BankAccountId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BankAccounts");
+                name: "Transactions");
 
             migrationBuilder.DropTable(
-                name: "Transactions");
+                name: "BankAccounts");
         }
     }
 }

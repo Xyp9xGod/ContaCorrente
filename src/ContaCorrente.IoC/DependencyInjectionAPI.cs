@@ -15,26 +15,17 @@ namespace ContaCorrente.IoC
         public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services,
             IConfiguration configuration)
         {
-            //executar usando docker-compose.
-            //var host = configuration["DBHOST"] ?? "database";
-            //var host = configuration["DBHOST"] ?? "localhost";
-            //var port = configuration["DBPORT"] ?? "3306";
-            //var password = configuration["DBPASSWORD"] ?? "root";
-
             var host = configuration["DBHOST"];
             var port = configuration["DBPORT"];
             var password = configuration["DBPASSWORD"];
-
+            
             services.AddDbContext<ApplicationDbContext>(options =>
-                //options.UseMySQL(configuration.GetConnectionString("DefaultConnection"))
-                options.UseMySQL($"server={host}; database=warrendb; userid=root; pwd={password}; port={port};")
+                options.UseMySQL($"server={host}; database=WarrenDb; userid=root; pwd={password}; port={port};")
             );
 
-            //registro dos repositorios
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();
 
-            //registro dos servicos
             services.AddScoped<IBankAccountService, BankAccountService>();
             services.AddScoped<ITransactionService, TransactionService>();
 

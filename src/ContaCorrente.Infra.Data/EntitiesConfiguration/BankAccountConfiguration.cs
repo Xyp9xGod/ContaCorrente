@@ -1,7 +1,6 @@
 ﻿using ContaCorrente.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace ContaCorrente.Infra.Data.EntitiesConfiguration
 {

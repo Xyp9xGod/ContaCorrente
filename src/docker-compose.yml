@@ -21,7 +21,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: mysql
       MYSQL_PASSWORD: mysql
-      MYSQL_DATABASE: warrendb
+      MYSQL_DATABASE: WarrenDb
   #Api  Service
   api:
     build:

@@ -83,6 +83,9 @@ namespace ContaCorrente.Infra.Data.Migrations
                         .HasMaxLength(8)
                         .HasColumnType("varchar(8)");
 
+                    b.Property<int>("BankAccountId")
+                        .HasColumnType("int");
+
                     b.Property<string>("BankCode")
                         .IsRequired()
                         .HasMaxLength(3)
@@ -99,7 +102,25 @@ namespace ContaCorrente.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BankAccountId");
+
                     b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("ContaCorrente.Domain.Entities.Transaction", b =>
+                {
+                    b.HasOne("ContaCorrente.Domain.Entities.BankAccount", "BankAccount")
+                        .WithMany("Transactions")
+                        .HasForeignKey("BankAccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BankAccount");
+                });
+
+            modelBuilder.Entity("ContaCorrente.Domain.Entities.BankAccount", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 #pragma warning restore 612, 618
         }

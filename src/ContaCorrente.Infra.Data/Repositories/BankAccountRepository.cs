@@ -5,6 +5,7 @@ using ContaCorrente.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ContaCorrente.Infra.Data.Repositories
@@ -24,7 +25,36 @@ namespace ContaCorrente.Infra.Data.Repositories
 
         public async Task<BankAccount> GetByAccountNumberAsync(string accountNumber)
         {
-            var bankAccount = await _bankAccountContext.Set<BankAccount>().FirstOrDefaultAsync(x => x.AccountNumber == accountNumber);
+            var bankAccount = await _bankAccountContext.BankAccounts
+                .Include(t => t.Transactions.Where(x => x.AccountNumber == accountNumber)).SingleOrDefaultAsync(b => b.AccountNumber == accountNumber);
+            
+            if (bankAccount != null)
+            {
+                bankAccount.Transactions.Clear();
+                _bankAccountContext.Entry(bankAccount).State = EntityState.Detached;
+            }
+            return bankAccount;
+        }
+
+        public async Task<BankAccount> GetHistoryAsync(string accountNumber)
+        {
+            var bankAccount = await _bankAccountContext.BankAccounts
+                .Include(t => t.Transactions.Where(x => x.AccountNumber == accountNumber)).SingleOrDefaultAsync(b => b.AccountNumber == accountNumber);
+
+            if (bankAccount != null)
+            {
+                _bankAccountContext.Entry(bankAccount).State = EntityState.Detached;
+            }
+            return bankAccount;
+        }
+
+        public async Task<BankAccount> GetPeriodHistoryAsync(string accountNumber, DateTime startDate, DateTime finalDate)
+        {
+            var bankAccount = await _bankAccountContext.BankAccounts
+                .Include(t => t.Transactions.Where(x => x.AccountNumber == accountNumber
+                    && x.Date >= startDate && x.Date <= finalDate))
+                .SingleOrDefaultAsync(b => b.AccountNumber == accountNumber);
+
             if (bankAccount != null)
             {
                 _bankAccountContext.Entry(bankAccount).State = EntityState.Detached;
@@ -61,7 +91,8 @@ namespace ContaCorrente.Infra.Data.Repositories
                 var transaction = new Transaction(bankAccount.AccountNumber,
                     bankAccount.BankCode, value,
                     (int)TransactionType.Type.Deposit, date != DateTime.MinValue ? date : DateTime.Today);
-                
+
+                transaction.BankAccountId = bankAccount.Id;
                 await _bankAccountContext.Transactions.AddAsync(transaction);
                 
                 bankAccount.Deposit(value);
@@ -84,10 +115,15 @@ namespace ContaCorrente.Infra.Data.Repositories
                 var transaction = new Transaction(bankAccount.AccountNumber,
                     bankAccount.BankCode, value,
                     (int)TransactionType.Type.Withdrawl, date != DateTime.MinValue ? date : DateTime.Today);
-                
+
+                transaction.BankAccountId = bankAccount.Id;
                 await _bankAccountContext.Transactions.AddAsync(transaction);
 
                 bankAccount.Withdraw(value);
+                if (bankAccount.Balance < 0)
+                {
+                    throw new Exception("You don't have suficient funds to withdrawl");
+                }
 
                 await _bankAccountContext.SaveChangesAsync();
                 await UpdateAsync(bankAccount);
@@ -108,9 +144,15 @@ namespace ContaCorrente.Infra.Data.Repositories
                     bankAccount.BankCode, value,
                     (int)TransactionType.Type.Payment, date != DateTime.MinValue ? date : DateTime.Today);
 
+                transaction.BankAccountId = bankAccount.Id;
                 await _bankAccountContext.Transactions.AddAsync(transaction);
 
                 bankAccount.Payment(value);
+
+                if (bankAccount.Balance < 0)
+                {
+                    throw new Exception("You don't have suficient funds to make the payment.");
+                }
 
                 await _bankAccountContext.SaveChangesAsync();
                 await UpdateAsync(bankAccount);

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ContaCorrente.Domain.Enums
+﻿namespace ContaCorrente.Domain.Enums
 {
     public class TransactionType
     {

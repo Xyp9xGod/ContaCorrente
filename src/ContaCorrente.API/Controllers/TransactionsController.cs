@@ -1,5 +1,6 @@
 ﻿using ContaCorrente.Application.DTOs;
 using ContaCorrente.Application.Interfaces;
+using ContaCorrente.Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -60,7 +61,7 @@ namespace ContaCorrente.API.Controllers
 
                 if (transactions.Count() == 0)
                 {
-                    return NotFound("No movimentations found on this periodo.");
+                    return NotFound("No movimentations found on this period.");
                 }
                 return Ok(transactions);
             }
@@ -81,6 +82,9 @@ namespace ContaCorrente.API.Controllers
             if (transactionDTO == null)
                 return BadRequest("Invalid Data.");
             
+            if(transactionDTO.Type != (int)TransactionType.Type.Deposit)
+                return BadRequest("Invalid Type, to make this operation inform Type 1.");
+
             var bankAccount = await _bankAccountService.GetByAccountNumberAsync(transactionDTO.AccountNumber);
             
             if (bankAccount == null)
@@ -109,6 +113,9 @@ namespace ContaCorrente.API.Controllers
             if (transactionDTO == null)
                 return BadRequest("Invalid Data.");
 
+            if (transactionDTO.Type != (int)TransactionType.Type.Withdrawl)
+                return BadRequest("Invalid Type, to make this operation inform Type 2.");
+
             var bankAccount = await _bankAccountService.GetByAccountNumberAsync(transactionDTO.AccountNumber);
 
             if (bankAccount == null)
@@ -136,6 +143,9 @@ namespace ContaCorrente.API.Controllers
         {
             if (transactionDTO == null)
                 return BadRequest("Invalid Data.");
+
+            if (transactionDTO.Type != (int)TransactionType.Type.Payment)
+                return BadRequest("Invalid Type, to make this operation inform Type 3.");
 
             var bankAccount = await _bankAccountService.GetByAccountNumberAsync(transactionDTO.AccountNumber);
 

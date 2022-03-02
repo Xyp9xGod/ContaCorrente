@@ -11,6 +11,8 @@ namespace ContaCorrente.Domain.Entities
         public double Value { get; private set; }
         public int Type { get; private set; }
         public DateTime Date { get; private set; }
+        public int BankAccountId { get; set; }
+        public BankAccount BankAccount { get; private set; }//propriedade de navegacao
 
         public Transaction(string accountNumber, string bankCode, double value, int type, DateTime date)
         {

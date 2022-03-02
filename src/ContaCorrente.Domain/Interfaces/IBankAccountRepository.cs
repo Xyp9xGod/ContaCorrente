@@ -9,6 +9,8 @@ namespace ContaCorrente.Domain.Interfaces
     {
         Task<IEnumerable<BankAccount>> GetAllAccountsAsync();
         Task<BankAccount> GetByAccountNumberAsync(string accountNumber);
+        Task<BankAccount> GetHistoryAsync(string accountNumber);
+        Task<BankAccount> GetPeriodHistoryAsync(string accountNumber, DateTime startDate, DateTime finalDate);
         Task<BankAccount> CreateAsync(BankAccount bankAccount);
         Task<BankAccount> UpdateAsync(BankAccount bankAccount);
         Task<BankAccount> RemoveAsync(BankAccount bankAccount);

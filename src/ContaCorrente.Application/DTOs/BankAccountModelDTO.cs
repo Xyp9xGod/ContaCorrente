@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace ContaCorrente.Application.DTOs
 {
-    public class BankAccountDTO
+    public class BankAccountModelDTO
     {
         [JsonIgnore]
         public int Id { get; set; }
@@ -34,8 +33,5 @@ namespace ContaCorrente.Application.DTOs
         [DataType(DataType.Currency)]
         [Range(0.0, Double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
         public double Balance { get; set; }
-
-        [DisplayName("BankAccounts")]
-        public virtual ICollection<TransactionDTO> Transactions { get; set; }
     }
 }

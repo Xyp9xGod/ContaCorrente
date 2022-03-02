@@ -33,13 +33,13 @@ namespace ContaCorrente.Application.Services
             return _mapper.Map<BankAccountDTO>(bankAcccountEntity);
         }
 
-        public async Task Add(BankAccountDTO bankAccountDTO)
+        public async Task Add(BankAccountModelDTO bankAccountDTO)
         {
             var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
             await _bankAccoutRepository.CreateAsync(bankAcccountEntity);
         }
 
-        public async Task Update(BankAccountDTO bankAccountDTO)
+        public async Task Update(BankAccountModelDTO bankAccountDTO)
         {
             var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
             await _bankAccoutRepository.UpdateAsync(bankAcccountEntity);
@@ -67,6 +67,18 @@ namespace ContaCorrente.Application.Services
         {
             var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
             await _bankAccoutRepository.PaymentAsync(bankAcccountEntity, value, date);
+        }
+
+        public async Task<BankAccountDTO> GetHistoryAsync(string accountNumber)
+        {
+            var bankAcccountEntity = await _bankAccoutRepository.GetHistoryAsync(accountNumber);
+            return _mapper.Map<BankAccountDTO>(bankAcccountEntity);
+        }
+
+        public async Task<BankAccountDTO> GetPeriodHistoryAsync(string accountNumber, DateTime startDate, DateTime finalDate)
+        {
+            var bankAcccountEntity = await _bankAccoutRepository.GetPeriodHistoryAsync(accountNumber, startDate, finalDate);
+            return _mapper.Map<BankAccountDTO>(bankAcccountEntity);
         }
     }
 }

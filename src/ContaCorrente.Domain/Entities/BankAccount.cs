@@ -1,5 +1,5 @@
 ﻿using ContaCorrente.Domain.Validations;
-using System;
+using System.Collections.Generic;
 
 namespace ContaCorrente.Domain.Entities
 {
@@ -9,6 +9,7 @@ namespace ContaCorrente.Domain.Entities
         public string BankCode { get; private set; }
         public string AgencyNumber { get; private set; }
         public double Balance { get; private set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }//relacionamento
 
         public BankAccount(string accountNumber, string bankCode, string agencyNumber, double balance)
         {

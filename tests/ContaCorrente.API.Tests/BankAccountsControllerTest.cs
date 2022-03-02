@@ -4,7 +4,6 @@ using ContaCorrente.Application.Interfaces;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -23,7 +22,7 @@ namespace ContaCorrente.API.Tests
             var controller = new BankAccountsController(service.Object);
 
             // Act
-            var result = await controller.GetByAccountNumber("123456-1");
+            var result = await controller.GetBalance("123456-1");
             
             // Assert
             result.Result.Should().BeOfType<NotFoundObjectResult>();
@@ -33,7 +32,7 @@ namespace ContaCorrente.API.Tests
         public async Task PostAccoutAssync_ValidObjectPassed_ReturnsCreatedAtRouteResult()
         {
             // Arrange
-            BankAccountDTO newAccount = new BankAccountDTO()
+            BankAccountModelDTO newAccount = new BankAccountModelDTO()
             {
                 BankCode = "371",
                 AgencyNumber = "0001",
@@ -58,7 +57,7 @@ namespace ContaCorrente.API.Tests
         public async Task PutAccoutAssync_InvalidaAccount_ReturnsXXX()
         {
             // Arrange
-            BankAccountDTO newAccount = new BankAccountDTO()
+            BankAccountModelDTO newAccount = new BankAccountModelDTO()
             {
                 BankCode = "371",
                 AgencyNumber = "0001",
