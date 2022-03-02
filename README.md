@@ -39,7 +39,7 @@ Ao executar estes passos uma janelaa irá se abrir com o swagger da API.
 
 - Swagger (API REST) - https://localhost:44340/swagger/index.html
 
-## API RESTful
+## API REST
 
 ### Conta Corrente - Endpoints
 
