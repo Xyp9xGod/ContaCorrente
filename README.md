@@ -9,6 +9,7 @@ O projeto tem uma camada:
 ## GitHub Actions
 
 São tarefas que vamos utilizar dentro do workflow. Aqui definimos que nosso workflow irá executar os testes unitários do projeto.
+Os testes serão realizados em ambientes Linux, Windows e Mac.
 
 https://github.com/Xyp9xGod/ContaCorrente/actions
 
@@ -123,3 +124,4 @@ Ideias do que pode ser implementado ainda no projeto:
 - Interface de usuário SPA para interagir com o sistema;
 - Microservico de rendimento;
 - Escrever o detalhamento da documentação swagger.
+- No Endpoint de pagamento, implementar a leitura e validação do código de barras para pagamentos de contas.
