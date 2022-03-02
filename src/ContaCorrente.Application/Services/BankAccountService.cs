@@ -21,16 +21,16 @@ namespace ContaCorrente.Application.Services
                  throw new ArgumentNullException(nameof(bankAccountRepository));
         }
 
-        public async Task<IEnumerable<BankAccountDTO>> GetAllAccountsAsync()
+        public async Task<IEnumerable<BankAccountModelDTO>> GetAllAccountsAsync()
         {
             var bankAcccountEntity = await _bankAccoutRepository.GetAllAccountsAsync();
-            return _mapper.Map<IEnumerable<BankAccountDTO>>(bankAcccountEntity);
+            return _mapper.Map<IEnumerable<BankAccountModelDTO>>(bankAcccountEntity);
         }
 
-        public async Task<BankAccountDTO> GetByAccountNumberAsync(string accountNumber)
+        public async Task<BankAccountModelDTO> GetByAccountNumberAsync(string accountNumber)
         {
             var bankAcccountEntity = await _bankAccoutRepository.GetByAccountNumberAsync(accountNumber);
-            return _mapper.Map<BankAccountDTO>(bankAcccountEntity);
+            return _mapper.Map<BankAccountModelDTO>(bankAcccountEntity);
         }
 
         public async Task Add(BankAccountModelDTO bankAccountDTO)
@@ -51,19 +51,19 @@ namespace ContaCorrente.Application.Services
             await _bankAccoutRepository.RemoveAsync(bankAcccountEntity);
         }
 
-        public async Task DepositAsync(BankAccountDTO bankAccountDTO, double value, DateTime date)
+        public async Task DepositAsync(BankAccountModelDTO bankAccountDTO, double value, DateTime date)
         {
             var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
             await _bankAccoutRepository.DepositAsync(bankAcccountEntity, value, date);
         }
 
-        public async Task WithdrawlAsync(BankAccountDTO bankAccountDTO, double value, DateTime date)
+        public async Task WithdrawlAsync(BankAccountModelDTO bankAccountDTO, double value, DateTime date)
         {
             var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
             await _bankAccoutRepository.WithdrawlAsync(bankAcccountEntity, value, date);
         }
 
-        public async Task PaymentAsync(BankAccountDTO bankAccountDTO, double value, DateTime date)
+        public async Task PaymentAsync(BankAccountModelDTO bankAccountDTO, double value, DateTime date)
         {
             var bankAcccountEntity = _mapper.Map<BankAccount>(bankAccountDTO);
             await _bankAccoutRepository.PaymentAsync(bankAcccountEntity, value, date);

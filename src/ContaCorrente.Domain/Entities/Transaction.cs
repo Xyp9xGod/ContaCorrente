@@ -11,22 +11,22 @@ namespace ContaCorrente.Domain.Entities
         public double Value { get; private set; }
         public int Type { get; private set; }
         public DateTime Date { get; private set; }
-        public int BankAccountId { get; set; }
+        public int BankAccountId { get; private set; }
         public BankAccount BankAccount { get; private set; }//propriedade de navegacao
 
-        public Transaction(string accountNumber, string bankCode, double value, int type, DateTime date)
+        public Transaction(string accountNumber, string bankCode, double value, int type, DateTime date, int bankAccountId)
         {
-            ValidateDomain(accountNumber, bankCode, value, type, date);
+            ValidateDomain(accountNumber, bankCode, value, type, date, bankAccountId);
         }
 
-        public Transaction(int id, string accountNumber, string bankCode, double value, int type, DateTime date)
+        public Transaction(int id, string accountNumber, string bankCode, double value, int type, DateTime date, int bankAccountId)
         {
             DomainExceptionValidation.When(id < 0, "Invalid Id value.");
             Id = id;
-            ValidateDomain(accountNumber, bankCode, value, type, date);
+            ValidateDomain(accountNumber, bankCode, value, type, date, bankAccountId);
         }
 
-        private void ValidateDomain(string accountNumber, string bankCode, double value, int type, DateTime date)
+        private void ValidateDomain(string accountNumber, string bankCode, double value, int type, DateTime date, int bankAccountId)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(accountNumber), "Invalid Account Number, Account Number is required.");
             DomainExceptionValidation.When(accountNumber.Length != 8, "Invalid Account Number, Account Number Should have 8 characters.");
@@ -44,6 +44,7 @@ namespace ContaCorrente.Domain.Entities
             Value = value;
             Type = type;
             Date = date;
+            BankAccountId = bankAccountId;
         }
     }
 }

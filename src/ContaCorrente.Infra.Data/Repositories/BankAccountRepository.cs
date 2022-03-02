@@ -12,10 +12,12 @@ namespace ContaCorrente.Infra.Data.Repositories
 {
     public class BankAccountRepository : IBankAccountRepository
     {
+        private ITransactionRepository _transanctionRepository;
         ApplicationDbContext _bankAccountContext;
-        public BankAccountRepository(ApplicationDbContext context)
+        public BankAccountRepository(ApplicationDbContext context, ITransactionRepository transanctionRepository)
         {
             _bankAccountContext = context;
+            _transanctionRepository = transanctionRepository;
         }
 
         public async Task<IEnumerable<BankAccount>> GetAllAccountsAsync()
@@ -30,7 +32,6 @@ namespace ContaCorrente.Infra.Data.Repositories
             
             if (bankAccount != null)
             {
-                bankAccount.Transactions.Clear();
                 _bankAccountContext.Entry(bankAccount).State = EntityState.Detached;
             }
             return bankAccount;
@@ -88,13 +89,12 @@ namespace ContaCorrente.Infra.Data.Repositories
         {
             try
             {
-                var transaction = new Transaction(bankAccount.AccountNumber,
+                var transaction = new Transaction(0, bankAccount.AccountNumber,
                     bankAccount.BankCode, value,
-                    (int)TransactionType.Type.Deposit, date != DateTime.MinValue ? date : DateTime.Today);
+                    (int)TransactionType.Type.Deposit, date != DateTime.MinValue ? date : DateTime.Today, bankAccount.Id);
 
-                transaction.BankAccountId = bankAccount.Id;
-                await _bankAccountContext.Transactions.AddAsync(transaction);
-                
+                await _transanctionRepository.CreateAsync(transaction);
+
                 bankAccount.Deposit(value);
                 
                 await _bankAccountContext.SaveChangesAsync();
@@ -114,9 +114,8 @@ namespace ContaCorrente.Infra.Data.Repositories
             {
                 var transaction = new Transaction(bankAccount.AccountNumber,
                     bankAccount.BankCode, value,
-                    (int)TransactionType.Type.Withdrawl, date != DateTime.MinValue ? date : DateTime.Today);
+                    (int)TransactionType.Type.Withdrawl, date != DateTime.MinValue ? date : DateTime.Today, bankAccount.Id);
 
-                transaction.BankAccountId = bankAccount.Id;
                 await _bankAccountContext.Transactions.AddAsync(transaction);
 
                 bankAccount.Withdraw(value);
@@ -142,9 +141,8 @@ namespace ContaCorrente.Infra.Data.Repositories
             {
                 var transaction = new Transaction(bankAccount.AccountNumber,
                     bankAccount.BankCode, value,
-                    (int)TransactionType.Type.Payment, date != DateTime.MinValue ? date : DateTime.Today);
+                    (int)TransactionType.Type.Payment, date != DateTime.MinValue ? date : DateTime.Today, bankAccount.Id);
 
-                transaction.BankAccountId = bankAccount.Id;
                 await _bankAccountContext.Transactions.AddAsync(transaction);
 
                 bankAccount.Payment(value);

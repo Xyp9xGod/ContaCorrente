@@ -33,5 +33,8 @@ namespace ContaCorrente.Application.DTOs
 
         [DisplayName("Date")]
         public DateTime Date { get; set; }
+
+        [JsonIgnore]
+        public int BankAccountId { get; set; }
     }
 }

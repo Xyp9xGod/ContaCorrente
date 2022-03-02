@@ -15,6 +15,7 @@ namespace ContaCorrente.IoC
         public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services,
             IConfiguration configuration)
         {
+            /*
             var host = configuration["DBHOST"];
             var port = configuration["DBPORT"];
             var password = configuration["DBPASSWORD"];
@@ -22,6 +23,11 @@ namespace ContaCorrente.IoC
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySQL($"server={host}; database=WarrenDb; userid=root; pwd={password}; port={port};")
             );
+            */
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"
+            ), b => b.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName)));
 
             services.AddScoped<IBankAccountRepository, BankAccountRepository>();
             services.AddScoped<ITransactionRepository, TransactionRepository>();

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
@@ -33,5 +34,8 @@ namespace ContaCorrente.Application.DTOs
         [DataType(DataType.Currency)]
         [Range(0.0, Double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
         public double Balance { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<TransactionDTO> Transactions { get; set; }
     }
 }

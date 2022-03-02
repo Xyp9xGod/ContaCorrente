@@ -15,61 +15,11 @@ namespace ContaCorrente.API.Controllers
     [ApiController]
     public class TransactionsController : ControllerBase
     {
-        private ITransactionService _transactionService;
         private IBankAccountService _bankAccountService;
 
-        public TransactionsController(ITransactionService transactionService, IBankAccountService bankAccountService)
+        public TransactionsController(IBankAccountService bankAccountService)
         {
-            _transactionService = transactionService;
             _bankAccountService = bankAccountService;
-        }
-
-        [HttpGet("{accountNumber}", Name = "GetAllAccountTransactions")]
-        [Produces(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<TransactionDTO>>> Get(string accountNumber)
-        {
-            try
-            {
-                var transactions = await _transactionService.GetAllAccountTransactionsAsync(accountNumber);
-                if (transactions.Count() == 0)
-                {
-                    return NotFound("No movimentations found.");
-                }
-                return Ok(transactions);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error getting transactions: " + ex.Message);
-            }
-        }
-
-        [HttpGet("{accountNumber}/{startDate}/{finalDate}", Name = "GetTransactionsByPeriod")]
-        [Produces(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<TransactionDTO>>> Get(string accountNumber, DateTime startDate, DateTime finalDate)
-        {
-            try
-            {
-                var transactions = await _transactionService
-                    .GetTransactionsByDateAsync(accountNumber, startDate, finalDate);
-
-                if (transactions.Count() == 0)
-                {
-                    return NotFound("No movimentations found on this period.");
-                }
-                return Ok(transactions);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error getting transactions: " + ex.Message);
-            }
         }
                 
         [HttpPost("Deposit/")]
