@@ -73,6 +73,12 @@ Retorna um JSON com os dados da conta especificada.
 
 Deleta uma conta através do seu número {accountNumber}.
 
+#### Carga Inicial de Dados
+O sistema faz uma carga inicial na base com três contas:
+- Conta: 123456-0, Banco: 371, Agência: 0001, Saldo: 40
+- Conta: 678910-2, Banco: 371, Agência: 0001, Saldo: 60
+- Conta: 345678-9, Banco: 371, Agência: 0001, Saldo: 150
+
 ### Transação - Endpoints
 
 As chamadas relativas ao controle de conta corrente são as seguintes:
