@@ -6,6 +6,26 @@ O projeto tem uma camada:
 
 - Uma API RESTful que foi desenvolvida em ASP.NET Core 5 com arquitetura DDD (Domain Driven Design), sendo o banco de dados utilizado MySQL com EF Core como ORM;
 
+
+## Rodando com docker-compose
+
+Para executar o projeto com docker-compose basta executar o seguinte comando a seguir. Após a execução a aplicação estará disponível na porta 5000.
+http://localhost:5000/swagger/index.html
+
+### Build
+
+- docker-compose up -d
+
+### Executar em caso de alteração
+
+- docker-compose up --build
+
+o comando acima força um novo build com as alterações realizadas.
+
+### Drop
+
+- docker-compose down
+
 ## Rodando no Visual Studio
 
 Para testar o projeto no Visual Studio basta seguir os seguintes passos:
