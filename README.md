@@ -6,7 +6,7 @@ O projeto tem uma camada:
 
 - Uma API RESTful que foi desenvolvida em ASP.NET Core 5 com arquitetura DDD (Domain Driven Design), sendo o banco de dados utilizado MySQL com EF Core como ORM;
 
-# GitHub Actions
+## GitHub Actions
 
 São tarefas que vamos utilizar dentro do workflow. Aqui definimos que nosso workflow irá executar os testes unitários do projeto.
 
@@ -92,7 +92,7 @@ As chamadas relativas ao controle de conta corrente são as seguintes:
 
 Adiciona ao saldo da conta corrente o valor informado.
 
-2. **Retirada** - [POST] /api/Transactions/Withdrawl
+2. **Saque** - [POST] /api/Transactions/Withdrawl
 
 Subtrai do saldo da conta corrente o valor informado.
 
