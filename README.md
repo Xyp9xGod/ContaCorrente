@@ -6,6 +6,11 @@ O projeto tem uma camada:
 
 - Uma API RESTful que foi desenvolvida em ASP.NET Core 5 com arquitetura DDD (Domain Driven Design), sendo o banco de dados utilizado MySQL com EF Core como ORM;
 
+# GitHub Actions
+
+São tarefas que vamos utilizar dentro do workflow. Aqui definimos que nosso workflow irá executar os testes unitários do projeto.
+
+https://github.com/Xyp9xGod/ContaCorrente/actions
 
 ## Rodando com docker-compose
 
