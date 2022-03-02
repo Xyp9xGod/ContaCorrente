@@ -123,3 +123,4 @@ Ideias do que pode ser implementado ainda no projeto:
 - Interface de usuário SPA para interagir com o sistema;
 - Microservico de rendimento;
 - Escrever o detalhamento da documentação swagger.
+- No Endpoint de pagamento, implementar a leitura e validação do código de barras para pagamentos de contas.
