@@ -9,6 +9,7 @@ O projeto tem uma camada:
 ## GitHub Actions
 
 São tarefas que vamos utilizar dentro do workflow. Aqui definimos que nosso workflow irá executar os testes unitários do projeto.
+Os testes serão realizados em ambientes Linux, Windows e Mac.
 
 https://github.com/Xyp9xGod/ContaCorrente/actions
 
