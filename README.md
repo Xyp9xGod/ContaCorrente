@@ -32,19 +32,6 @@ o comando acima força um novo build com as alterações realizadas.
 
 - docker-compose down
 
-## Rodando no Visual Studio
-
-Para testar o projeto no Visual Studio basta seguir os seguintes passos:
-
-- Definir o projeto ContaCorrente.API.Tests com a opção **Set as Startup Project** nas propriedades da solution;
-- Definir os dados do servidor e DB a ser utilizado no arquivo **appsettings.json** dentro do projeto ContaAPI.Application;
-- No **Package Manager Console** definir como **Default Project** o projeto ContaCorrente.Infra.Data e executar o comando **Update-Database**;
-- Clicar em **Start** (F5).
-
-Ao executar estes passos uma janelaa irá se abrir com o swagger da API.
-
-- Swagger (API REST) - https://localhost:44340/swagger/index.html
-
 ## API REST
 
 ### Conta Corrente - Endpoints
