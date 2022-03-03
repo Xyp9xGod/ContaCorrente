@@ -19,6 +19,7 @@ Para executar o projeto com docker-compose basta executar o seguinte comando a s
 http://localhost:5000/swagger/index.html
 
 ### Build
+Abrir o diretório .\ContaCorrente\src e rodar o comando:
 
 - docker-compose up -d
 
@@ -50,21 +51,21 @@ Cria uma conta com os dados de Número da Conta, Código do Banco, Número da Ag
 
 Atualiza uma conta com os dados informados.
 
-4. **Busca Saldo da Conta** - [GET] /api/BankAccounts/Balance/{accountNumber}
+4. **Busca Saldo da Conta** - [GET] /api/BankAccounts/Balance/{accountNumber}/{bankCode}/{agencyNumber}
 
 Retorna um JSON com os dados da conta especificada.
 
-5. **Busca Histórico da Conta** - [GET] /api/BankAccounts/History/{accountNumber}
+5. **Busca Histórico da Conta** - [GET] /api/BankAccounts/History/{accountNumber}/{bankCode}/{agencyNumber}
 
 Retorna um JSON com os dados da conta e todas as transações.
 
-6. **Busca Histórico da Conta Por Período** - [GET] /api/BankAccounts/PeriodHistory/{accountNumber}
+6. **Busca Histórico da Conta Por Período** - [GET] /api/BankAccounts/PeriodHistory/{accountNumber}/{bankCode}/{agencyNumber}/{startDate}/{finalDate}
 
 Retorna um JSON com os dados da conta especificada.
 
-7. **Deleção de uma Conta** - [DELETE] /api/BankAccounts/{accountNumber}
+7. **Deleção de uma Conta** - [DELETE] /api/BankAccounts/{accountNumber}/{bankCode}/{agencyNumber}
 
-Deleta uma conta através do seu número {accountNumber}.
+Deleta a conta informada e todas suas transações.
 
 #### Carga Inicial de Dados
 O sistema faz uma carga inicial na base com três contas:
