@@ -15,7 +15,6 @@ namespace ContaCorrente.IoC
         public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services,
             IConfiguration configuration)
         {
-            
             var host = configuration["DBHOST"];
             var port = configuration["DBPORT"];
             var password = configuration["DBPASSWORD"];

@@ -17,12 +17,12 @@ namespace ContaCorrente.API.Tests
             //Arrange
             var service = new Mock<IBankAccountService>();
             service.Setup(repo =>
-                repo.GetByAccountNumberAsync("123456-1"));
+                repo.GetAccountAsync("123456-1", "371", "0001"));
 
             var controller = new BankAccountsController(service.Object);
 
             // Act
-            var result = await controller.GetBalance("123456-1");
+            var result = await controller.GetBalance("123456-1", "371", "0001");
             
             // Assert
             result.Result.Should().BeOfType<NotFoundObjectResult>();

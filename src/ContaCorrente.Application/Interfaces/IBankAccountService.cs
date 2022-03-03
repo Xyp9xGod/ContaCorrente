@@ -8,14 +8,14 @@ namespace ContaCorrente.Application.Interfaces
     public interface IBankAccountService
     {
         Task<IEnumerable<BankAccountModelDTO>> GetAllAccountsAsync();
-        Task<BankAccountModelDTO> GetByAccountNumberAsync(string accountNumber);
-        Task<BankAccountDTO> GetHistoryAsync(string accountNumber);
-        Task<BankAccountDTO> GetPeriodHistoryAsync(string accountNumber, DateTime startDate, DateTime finalDate);
+        Task<BankAccountModelDTO> GetAccountAsync(string accountNumber, string bankCode, string agencyNumber);
+        Task<BankAccountDTO> GetHistoryAsync(string accountNumber, string bankCode, string agencyNumber);
+        Task<BankAccountDTO> GetPeriodHistoryAsync(string accountNumber, string bankCode, string agencyNumber, DateTime startDate, DateTime finalDate);
         Task Add(BankAccountModelDTO bankAccountDTO);
         Task Update(BankAccountModelDTO bankAccountDTO);
-        Task Remove(string accountNumber);
-        Task DepositAsync(BankAccountModelDTO bankAccountDTO, double value, DateTime date);
-        Task WithdrawlAsync(BankAccountModelDTO bankAccountDTO, double value, DateTime date);
-        Task PaymentAsync(BankAccountModelDTO bankAccountDTO, double value, DateTime date);
+        Task Remove(BankAccountModelDTO bankAccountDTO);
+        Task DepositAsync(BankAccountModelDTO bankAccountDTO, TransactionDTO transactionDTO);
+        Task WithdrawlAsync(BankAccountModelDTO bankAccountDTO, TransactionDTO transactionDTO);
+        Task PaymentAsync(BankAccountModelDTO bankAccountDTO, TransactionDTO transactionDTO);
     }
 }

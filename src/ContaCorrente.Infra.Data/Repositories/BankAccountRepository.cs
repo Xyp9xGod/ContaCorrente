@@ -25,22 +25,16 @@ namespace ContaCorrente.Infra.Data.Repositories
             return await _bankAccountContext.BankAccounts.ToListAsync();
         }
 
-        public async Task<BankAccount> GetByAccountNumberAsync(string accountNumber)
+        public async Task<BankAccount> GetAccountAsync(string accountNumber, string bankCode, string agencyNumber)
         {
             var bankAccount = await _bankAccountContext.BankAccounts
-                .Include(t => t.Transactions.Where(x => x.AccountNumber == accountNumber)).SingleOrDefaultAsync(b => b.AccountNumber == accountNumber);
-            
-            if (bankAccount != null)
-            {
-                _bankAccountContext.Entry(bankAccount).State = EntityState.Detached;
-            }
-            return bankAccount;
-        }
-
-        public async Task<BankAccount> GetHistoryAsync(string accountNumber)
-        {
-            var bankAccount = await _bankAccountContext.BankAccounts
-                .Include(t => t.Transactions.Where(x => x.AccountNumber == accountNumber)).SingleOrDefaultAsync(b => b.AccountNumber == accountNumber);
+                .Include(t => t.Transactions.Where(
+                    x => x.AccountNumber == accountNumber &&
+                    x.BankCode == bankCode &&
+                    x.AgencyNumber == agencyNumber))
+                .SingleOrDefaultAsync(b => b.AccountNumber == accountNumber &&
+                    b.BankCode == bankCode &&
+                    b.AgencyNumber == agencyNumber);
 
             if (bankAccount != null)
             {
@@ -49,12 +43,36 @@ namespace ContaCorrente.Infra.Data.Repositories
             return bankAccount;
         }
 
-        public async Task<BankAccount> GetPeriodHistoryAsync(string accountNumber, DateTime startDate, DateTime finalDate)
+        public async Task<BankAccount> GetHistoryAsync(string accountNumber, string bankCode, string agencyNumber)
         {
             var bankAccount = await _bankAccountContext.BankAccounts
-                .Include(t => t.Transactions.Where(x => x.AccountNumber == accountNumber
-                    && x.Date >= startDate && x.Date <= finalDate))
-                .SingleOrDefaultAsync(b => b.AccountNumber == accountNumber);
+                .Include(t => t.Transactions.Where(
+                    x => x.AccountNumber == accountNumber && 
+                    x.BankCode == bankCode && 
+                    x.AgencyNumber == agencyNumber))
+                .SingleOrDefaultAsync(b => b.AccountNumber == accountNumber &&
+                    b.BankCode == bankCode && 
+                    b.AgencyNumber == agencyNumber);
+
+            if (bankAccount != null)
+            {
+                _bankAccountContext.Entry(bankAccount).State = EntityState.Detached;
+            }
+            return bankAccount;
+        }
+
+        public async Task<BankAccount> GetPeriodHistoryAsync(string accountNumber, string bankCode, 
+            string agencyNumber, DateTime startDate, DateTime finalDate)
+        {
+            var bankAccount = await _bankAccountContext.BankAccounts
+                .Include(t => t.Transactions.Where(
+                    x => x.AccountNumber == accountNumber &&
+                    x.BankCode == bankCode &&
+                    x.AgencyNumber == agencyNumber &&
+                    x.Date >= startDate && x.Date <= finalDate))
+                .SingleOrDefaultAsync(b => b.AccountNumber == accountNumber &&
+                    b.BankCode == bankCode &&
+                    b.AgencyNumber == agencyNumber);
 
             if (bankAccount != null)
             {
@@ -85,17 +103,18 @@ namespace ContaCorrente.Infra.Data.Repositories
             return bankAccount;
         }
 
-        public async Task<BankAccount> DepositAsync(BankAccount bankAccount, double value, DateTime date)
+        public async Task<BankAccount> DepositAsync(BankAccount bankAccount, Transaction transaction)
         {
             try
             {
-                var transaction = new Transaction(0, bankAccount.AccountNumber,
-                    bankAccount.BankCode, value,
-                    (int)TransactionType.Type.Deposit, date != DateTime.MinValue ? date : DateTime.Today, bankAccount.Id);
+                var newTransaction = new Transaction(0, bankAccount.AccountNumber,
+                    bankAccount.BankCode, bankAccount.AgencyNumber, transaction.Value,
+                    transaction.Type,
+                    transaction.Date != DateTime.MinValue ? transaction.Date : DateTime.Today, bankAccount.Id);
 
-                await _transanctionRepository.CreateAsync(transaction);
+                await _transanctionRepository.CreateAsync(newTransaction);
 
-                bankAccount.Deposit(value);
+                bankAccount.Deposit(transaction.Value);
                 
                 await _bankAccountContext.SaveChangesAsync();
                 await UpdateAsync(bankAccount);
@@ -108,22 +127,22 @@ namespace ContaCorrente.Infra.Data.Repositories
             return bankAccount;
         }
 
-        public async Task<BankAccount> WithdrawlAsync(BankAccount bankAccount, double value, DateTime date)
+        public async Task<BankAccount> WithdrawlAsync(BankAccount bankAccount, Transaction transaction)
         {
             try
             {
-                var transaction = new Transaction(bankAccount.AccountNumber,
-                    bankAccount.BankCode, value,
-                    (int)TransactionType.Type.Withdrawl, date != DateTime.MinValue ? date : DateTime.Today, bankAccount.Id);
+                var newTransaction = new Transaction(0, bankAccount.AccountNumber,
+                    bankAccount.BankCode, bankAccount.AgencyNumber, transaction.Value,
+                    transaction.Type,
+                    transaction.Date != DateTime.MinValue ? transaction.Date : DateTime.Today, bankAccount.Id);
 
-                await _bankAccountContext.Transactions.AddAsync(transaction);
+                await _transanctionRepository.CreateAsync(newTransaction);
 
-                bankAccount.Withdraw(value);
-                if (bankAccount.Balance < 0)
-                {
+                bankAccount.Withdraw(transaction.Value);
+
+                if (bankAccount.Balance < 0)                
                     throw new Exception("You don't have suficient funds to withdrawl");
-                }
-
+                
                 await _bankAccountContext.SaveChangesAsync();
                 await UpdateAsync(bankAccount);
             }
@@ -135,22 +154,21 @@ namespace ContaCorrente.Infra.Data.Repositories
             return bankAccount;
         }
 
-        public async Task<BankAccount> PaymentAsync(BankAccount bankAccount, double value, DateTime date)
+        public async Task<BankAccount> PaymentAsync(BankAccount bankAccount, Transaction transaction)
         {
             try
             {
-                var transaction = new Transaction(bankAccount.AccountNumber,
-                    bankAccount.BankCode, value,
-                    (int)TransactionType.Type.Payment, date != DateTime.MinValue ? date : DateTime.Today, bankAccount.Id);
+                var newTransaction = new Transaction(0, bankAccount.AccountNumber,
+                    bankAccount.BankCode, bankAccount.AgencyNumber, transaction.Value,
+                    transaction.Type,
+                    transaction.Date != DateTime.MinValue ? transaction.Date : DateTime.Today, bankAccount.Id);
 
-                await _bankAccountContext.Transactions.AddAsync(transaction);
+                await _transanctionRepository.CreateAsync(newTransaction);
 
-                bankAccount.Payment(value);
+                bankAccount.Payment(transaction.Value);
 
                 if (bankAccount.Balance < 0)
-                {
                     throw new Exception("You don't have suficient funds to make the payment.");
-                }
 
                 await _bankAccountContext.SaveChangesAsync();
                 await UpdateAsync(bankAccount);

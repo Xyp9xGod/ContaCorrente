@@ -35,7 +35,7 @@ namespace ContaCorrente.API.Controllers
             if(transactionDTO.Type != (int)TransactionType.Type.Deposit)
                 return BadRequest("Invalid Type, to make this operation inform Type 1.");
 
-            var bankAccount = await _bankAccountService.GetByAccountNumberAsync(transactionDTO.AccountNumber);
+            var bankAccount = await _bankAccountService.GetAccountAsync(transactionDTO.AccountNumber, transactionDTO.BankCode, transactionDTO.AgencyNumber);
             
             if (bankAccount == null)
             {
@@ -44,7 +44,7 @@ namespace ContaCorrente.API.Controllers
 
             try
             {
-                await _bankAccountService.DepositAsync(bankAccount, transactionDTO.Value, transactionDTO.Date);
+                await _bankAccountService.DepositAsync(bankAccount, transactionDTO);
                 return Ok(transactionDTO);
             }
             catch (Exception ex)
@@ -66,7 +66,7 @@ namespace ContaCorrente.API.Controllers
             if (transactionDTO.Type != (int)TransactionType.Type.Withdrawl)
                 return BadRequest("Invalid Type, to make this operation inform Type 2.");
 
-            var bankAccount = await _bankAccountService.GetByAccountNumberAsync(transactionDTO.AccountNumber);
+            var bankAccount = await _bankAccountService.GetAccountAsync(transactionDTO.AccountNumber, transactionDTO.BankCode, transactionDTO.AgencyNumber);
 
             if (bankAccount == null)
             {
@@ -75,7 +75,7 @@ namespace ContaCorrente.API.Controllers
 
             try
             {
-                await _bankAccountService.WithdrawlAsync(bankAccount, transactionDTO.Value, transactionDTO.Date);
+                await _bankAccountService.WithdrawlAsync(bankAccount, transactionDTO);
                 return Ok(transactionDTO);
             }
             catch (Exception ex)
@@ -97,7 +97,7 @@ namespace ContaCorrente.API.Controllers
             if (transactionDTO.Type != (int)TransactionType.Type.Payment)
                 return BadRequest("Invalid Type, to make this operation inform Type 3.");
 
-            var bankAccount = await _bankAccountService.GetByAccountNumberAsync(transactionDTO.AccountNumber);
+            var bankAccount = await _bankAccountService.GetAccountAsync(transactionDTO.AccountNumber, transactionDTO.BankCode, transactionDTO.AgencyNumber);
 
             if (bankAccount == null)
             {
@@ -106,7 +106,7 @@ namespace ContaCorrente.API.Controllers
 
             try
             {
-                await _bankAccountService.PaymentAsync(bankAccount, transactionDTO.Value, transactionDTO.Date);
+                await _bankAccountService.PaymentAsync(bankAccount, transactionDTO);
                 return Ok(transactionDTO);
             }
             catch (Exception ex)

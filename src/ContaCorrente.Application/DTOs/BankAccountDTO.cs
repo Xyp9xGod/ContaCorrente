@@ -32,7 +32,7 @@ namespace ContaCorrente.Application.DTOs
         [Required(ErrorMessage = "Balance is Required")]
         [DisplayName("Balance")]
         [DataType(DataType.Currency)]
-        [Range(0.0, Double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
+        [Range(0.0, double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
         public double Balance { get; set; }
 
         [DisplayName("BankAccounts")]

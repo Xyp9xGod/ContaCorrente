@@ -32,6 +32,7 @@ namespace ContaCorrente.Infra.Data.Migrations
                         .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     AccountNumber = table.Column<string>(type: "varchar(8)", maxLength: 8, nullable: false),
                     BankCode = table.Column<string>(type: "varchar(3)", maxLength: 3, nullable: false),
+                    AgencyNumber = table.Column<string>(type: "varchar(4)", maxLength: 4, nullable: false),
                     Value = table.Column<double>(type: "double", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime", nullable: false),

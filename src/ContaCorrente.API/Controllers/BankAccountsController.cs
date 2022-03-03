@@ -43,16 +43,17 @@ namespace ContaCorrente.API.Controllers
             }
         }
 
-        [HttpGet("Balance/{accountNumber}", Name = "GetBalance")]
+        [HttpGet("Balance/{accountNumber}/{bankCode}/{agencyNumber}", Name = "GetBalance")]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<BankAccountModelDTO>>> GetBalance(string accountNumber)
+        public async Task<ActionResult<IEnumerable<BankAccountModelDTO>>> GetBalance(string accountNumber,
+            string bankCode, string agencyNumber)
         {
             try
             {
-                var bankAccounts = await _bankAccountService.GetByAccountNumberAsync(accountNumber);
+                var bankAccounts = await _bankAccountService.GetAccountAsync(accountNumber, bankCode, agencyNumber);
                 if (bankAccounts == null)
                 {
                     return NotFound("Bank Account Not Found.");
@@ -66,16 +67,17 @@ namespace ContaCorrente.API.Controllers
             }
         }
 
-        [HttpGet("History/{accountNumber}", Name = "GetHistory")]
+        [HttpGet("History/{accountNumber}/{bankCode}/{agencyNumber}", Name = "GetHistory")]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<BankAccountDTO>>> GetHistory(string accountNumber)
+        public async Task<ActionResult<IEnumerable<BankAccountDTO>>> GetHistory(string accountNumber,
+            string bankCode, string agencyNumber)
         {
             try
             {
-                var bankAccounts = await _bankAccountService.GetHistoryAsync(accountNumber);
+                var bankAccounts = await _bankAccountService.GetHistoryAsync(accountNumber, bankCode, agencyNumber);
                 if (bankAccounts == null)
                 {
                     return NotFound("Bank Account Not Found.");
@@ -89,16 +91,17 @@ namespace ContaCorrente.API.Controllers
             }
         }
 
-        [HttpGet("PeriodHistory/{accountNumber}/{startDate}/{finalDate}", Name = "GetPeriodHistory")]
+        [HttpGet("PeriodHistory/{accountNumber}/{bankCode}/{agencyNumber}/{startDate}/{finalDate}", Name = "GetPeriodHistory")]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<BankAccountDTO>>> GetPeriodHistory(string accountNumber, DateTime startDate, DateTime finalDate)
+        public async Task<ActionResult<IEnumerable<BankAccountDTO>>> GetPeriodHistory(string accountNumber,
+            string bankCode, string agencyNumber, DateTime startDate, DateTime finalDate)
         {
             try
             {
-                var bankAccounts = await _bankAccountService.GetPeriodHistoryAsync(accountNumber, startDate, finalDate);
+                var bankAccounts = await _bankAccountService.GetPeriodHistoryAsync(accountNumber, bankCode, agencyNumber, startDate, finalDate);
                 if (bankAccounts == null)
                 {
                     return NotFound("Bank Account Not Found.");
@@ -121,7 +124,12 @@ namespace ContaCorrente.API.Controllers
         {
             if (bankAccountDTO == null)
                 return BadRequest("Invalid Data.");
-        
+
+            var bankAccount = await _bankAccountService.GetAccountAsync(bankAccountDTO.AccountNumber, bankAccountDTO.BankCode, bankAccountDTO.AgencyNumber);
+
+            if (bankAccount != null)
+                return BadRequest("Banck Account already exists.");
+
             try
             {
                 await _bankAccountService.Add(bankAccountDTO);
@@ -133,7 +141,9 @@ namespace ContaCorrente.API.Controllers
             }
         
             return new CreatedAtRouteResult("GetBalance", 
-                new { accountNumber = bankAccountDTO.AccountNumber }, bankAccountDTO);
+                new { accountNumber = bankAccountDTO.AccountNumber,
+                    bankCode = bankAccountDTO.BankCode,
+                    agencyNumber = bankAccountDTO.AgencyNumber }, bankAccountDTO);
         }
 
         [HttpPut]
@@ -146,7 +156,7 @@ namespace ContaCorrente.API.Controllers
             if (bankAccountDTO == null)
                 return BadRequest("Invalid Data.");
 
-            var bankAccount = await _bankAccountService.GetByAccountNumberAsync(bankAccountDTO.AccountNumber);
+            var bankAccount = await _bankAccountService.GetAccountAsync(bankAccountDTO.AccountNumber, bankAccountDTO.BankCode, bankAccountDTO.AgencyNumber);
 
             if (bankAccount == null)
             {
@@ -168,25 +178,25 @@ namespace ContaCorrente.API.Controllers
             return Ok(bankAccountDTO);
         }
 
-        [HttpDelete("{accountNumber}", Name = "DeleteAccount")]
+        [HttpDelete("{accountNumber}/{bankCode}/{agencyNumber}", Name = "DeleteAccount")]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<IEnumerable<BankAccountDTO>>> Delete(string accountNumber)
+        public async Task<ActionResult<IEnumerable<BankAccountDTO>>> Delete(string accountNumber, string bankCode, string agencyNumber)
         {
             if (string.IsNullOrEmpty(accountNumber))
                 return BadRequest("Invalid AccountNumber.");
 
             try
             {
-                var bankAccount = await _bankAccountService.GetByAccountNumberAsync(accountNumber);
+                var bankAccount = await _bankAccountService.GetAccountAsync(accountNumber, bankCode, agencyNumber);
                 if (bankAccount == null)
                 {
                     return NotFound("Bank Account Not Found.");
                 }
 
-                await _bankAccountService.Remove(bankAccount.AccountNumber);
+                await _bankAccountService.Remove(bankAccount);
                 return Ok(bankAccount);
             }
             catch (Exception ex)

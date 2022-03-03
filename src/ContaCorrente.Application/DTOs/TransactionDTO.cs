@@ -22,10 +22,16 @@ namespace ContaCorrente.Application.DTOs
         [DisplayName("Bank Code")]
         public string BankCode { get; set; }
 
+        [Required(ErrorMessage = "Agency Number is Required")]
+        [MinLength(4)]
+        [MaxLength(4)]
+        [DisplayName("Agency Number")]
+        public string AgencyNumber { get; set; }
+
         [Required(ErrorMessage = "Value is Required")]
         [DisplayName("Value")]
         [DataType(DataType.Currency)]
-        [Range(0.0, Double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
+        [Range(0.0, double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
         public double Value { get; set; }
 
         [DisplayName("Type")]
